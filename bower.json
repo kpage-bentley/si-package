@@ -1,0 +1,16 @@
+{
+    "name": "si-package",
+    "description": "SI Common Source",
+    "version": "0.0.1",
+    "license": "UNLICENSED",
+    "private": true,
+    "dependencies": {
+        "angular": "1.4.4",
+        "d3": "3.5.6",
+        "d3.parcoords": "0.7.0"
+    },
+    "ignore": [
+        "*",
+        "!/dist/*"
+    ]
+}
