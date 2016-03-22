@@ -3,3 +3,7 @@ bower_components/
 npm-debug.log
 .baseDir.*
 .tscache/
+
+demo/**/*.js
+
+*.tmp.txt

@@ -1,1 +1,37 @@
-<h1>SI Package</h1>
+<!DOCTYPE html>
+<html data-ng-app="si.package.demo">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Structural Insights">
+        <meta name="author" content="Kaustubh Page">
+        <title>SI Package Demo</title>
+
+        <!-- Bower Components -->
+        <link href="bower_components/d3.parcoords/d3.parcoords.css"></script>
+
+        <!-- SI Package -->
+        <link href="dist/main.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <!-- Parcoords Demo -->
+        <div data-ng-include="'demo/parcoords/view.html'"></div>
+
+        <!-- Bower Components -->
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script src="bower_components/d3/d3.min.js"></script>
+        <script src="bower_components/d3.parcoords/d3.parcoords.js"></script>
+
+        <!-- SI Package -->
+        <script src="dist/main.js"></script>
+
+        <!--Bootstrapping angular-->
+        <script src="demo/app.js"></script>
+
+        <!-- Demo Controllers -->
+        <script src="demo/parcoords/controller.js"></script>
+    </body>
+</html>

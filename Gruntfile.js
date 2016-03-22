@@ -13,19 +13,19 @@ module.exports = function (grunt) {
 
         // Used to watch for when TypeScript and Less files are modified
         watch: {
+            less: {
+                // if any .less file changes in directory "assets/css/" run the "less"-task.
+                files: "src/styles/*.less",
+                tasks: ["less"]
+            },
             ts: {
-                less: {
-                    // if any .less file changes in directory "assets/css/" run the "less"-task.
-                    files: "src/styles/*.less",
-                    tasks: ["less"]
-                },
-                // if any .ts files changes in directory "src/" run the "ts"-task.
-                files: ["src/scripts/*.ts"],
+                // if any .ts files change, run the "ts"-task.
+                files: ["src/scripts/*.ts", "demo/**/*.ts"],
                 tasks: ["ts"],
                 options: {
                     spawn: false
                 }
-            }
+            },
         },
 
         // Used to compile Less files into CSS
@@ -46,6 +46,9 @@ module.exports = function (grunt) {
             default: {
                 src: ["src/scripts/*.ts"],
                 out: "./dist/main.js"
+            },
+            demo: {
+                src: ["demo/**/*.ts"]
             }
         },
 
