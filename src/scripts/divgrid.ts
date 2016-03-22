@@ -1,13 +1,32 @@
 /// <reference path="../../typings/d3/d3.d.ts" />
 
-// http://bl.ocks.org/3687826
-(d3 as any).divgrid = function(config) {
+(d3 as any).divgrid = function (config) {
     var columns = [];
 
     var dg = function(selection) {
         if (columns.length == 0)
             columns = d3.keys(selection.data()[0][0]);
 
+        // Append table
+        var table = selection.append("table")
+            .attr("class", "table");
+
+        // Create Header
+        table.append("thead").append("tr")
+            .selectAll("th")
+            .data(columns).enter()
+            .append("th")
+            .text(function (d) { return d; });
+
+        // Create tbody
+        table.append("tbody")
+            .selectAll("tr")
+            .data(function (d) { return d; }).enter()
+            .append("tr")
+            .selectAll("td");
+
+        // ----- Old Code -----
+        /*
         // header
         selection.selectAll(".header")
             .data([true])
@@ -28,13 +47,13 @@
         header.exit().remove();
 
         // rows
-        var rows = selection.selectAll(".row")
+        var rows2 = selection.selectAll(".row")
             .data(function(d) { return d; })
 
-        rows.enter().append("div")
+        rows2.enter().append("div")
             .attr("class", "row")
 
-        rows.exit().remove();
+        rows2.exit().remove();
 
         var cells = selection.selectAll(".row").selectAll(".cell")
             .data(function(d) { return columns.map(function(col){return d[col];}) })
@@ -47,7 +66,7 @@
         cells.exit().remove();
 
         selection.selectAll(".cell")
-            .text(function(d) { return d; });
+            .text(function(d) { return d; });*/
 
         return dg;
     };
