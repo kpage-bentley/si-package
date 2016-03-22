@@ -9,9 +9,9 @@ class ParcoordsController {
         $scope.settings = {
             getData: () => {
                 return $q.when([
-                    { w: 6, x: 10, y: 14, z: 10 },
-                    { w: 7, x: 12, y: 12, z: 12 },
-                    { w: 8, x: 14, y: 10, z: 14 }
+                    { w: 1, x: 10, y: 14, z: 10 },
+                    { w: 2, x: 12, y: 12, z: 12 },
+                    { w: 3, x: 14, y: 10, z: 14 }
                 ]);
             },
             hideAxis: ["w"],
