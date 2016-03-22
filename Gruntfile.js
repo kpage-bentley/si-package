@@ -45,7 +45,7 @@ module.exports = function (grunt) {
             },
             default: {
                 src: ["src/scripts/*.ts"],
-                outDir: "./dist"
+                out: "./dist/main.js"
             }
         },
 
