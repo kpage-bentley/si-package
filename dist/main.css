@@ -1,0 +1,28 @@
+/* Customized CSS for d3.parcoords grid */
+/* data table styles */
+.parcoords-grid #grid {
+  height: 300px;
+}
+.parcoords-grid .row,
+.parcoords-grid .header {
+  clear: left;
+  font-size: 14px;
+  line-height: 25px;
+  height: 25px;
+}
+.parcoords-grid .row:nth-child(odd) {
+  background: rgba(220, 130, 160, 0.05);
+}
+.parcoords-grid .header {
+  font-weight: bold;
+}
+.parcoords-grid .cell {
+  float: left;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 150px;
+  height: 20px;
+}
+.parcoords-grid .col-0 {
+  width: 300px;
+}

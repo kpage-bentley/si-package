@@ -4,6 +4,7 @@ module.exports = function (grunt) {
 
     // load all grunt tasks
     grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-open');
     grunt.loadNpmTasks('grunt-ts');
@@ -13,11 +14,26 @@ module.exports = function (grunt) {
         // Used to watch for when TypeScript and Less files are modified
         watch: {
             ts: {
+                less: {
+                    // if any .less file changes in directory "assets/css/" run the "less"-task.
+                    files: "src/styles/*.less",
+                    tasks: ["less"]
+                },
                 // if any .ts files changes in directory "src/" run the "ts"-task.
-                files: ["src/*.ts"],
+                files: ["src/scripts/*.ts"],
                 tasks: ["ts"],
                 options: {
                     spawn: false
+                }
+            }
+        },
+
+        // Used to compile Less files into CSS
+        less: {
+            default: {
+                files: {
+                    // compilation.css  :   source.less
+                    "dist/main.css"     :  "src/styles/main.less"
                 }
             }
         },
@@ -28,7 +44,7 @@ module.exports = function (grunt) {
                 sourceMap: false,
             },
             default: {
-                src: ["src/*.ts"],
+                src: ["src/scripts/*.ts"],
                 outDir: "./dist"
             }
         },
@@ -37,7 +53,7 @@ module.exports = function (grunt) {
         connect: {
             server: {
                 options: {
-                    port: 8000
+                    port: 7500
                 }
             }
         },
@@ -45,11 +61,11 @@ module.exports = function (grunt) {
         // Used to launch index.html
         open: {
             default: {
-                path: 'http://localhost:8000/index.html'
+                path: 'http://localhost:7500/index.html'
             }
         }
     });
 
     // the default task (running "grunt" in console)
-    grunt.registerTask('default', ['ts', 'connect', 'open', 'watch']);
+    grunt.registerTask('default', ['ts', 'less', 'connect', 'open', 'watch']);
 };

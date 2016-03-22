@@ -67,7 +67,7 @@ var si;
             return ParcoordsDirective;
         })();
         angular
-            .module('si.widgets')
+            .module('si.package', [])
             .directive('siParcoords', ParcoordsDirective.Factory());
     })(package = si.package || (si.package = {}));
 })(si || (si = {}));

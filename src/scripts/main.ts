@@ -1,5 +1,5 @@
-/// <reference path="../typings/angularjs/angular.d.ts" />
-/// <reference path="../typings/d3/d3.d.ts" />
+/// <reference path="../../typings/angularjs/angular.d.ts" />
+/// <reference path="../../typings/d3/d3.d.ts" />
 
 module si.package {
 
@@ -148,6 +148,6 @@ module si.package {
     }
 
     angular
-        .module('si.widgets')
+        .module('si.package', [])
         .directive('siParcoords', ParcoordsDirective.Factory());
 }
