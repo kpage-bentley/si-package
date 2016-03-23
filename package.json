@@ -23,6 +23,8 @@
         "grunt-contrib-connect": "1.0.0",
         "grunt-contrib-less": "1.2.0",
         "grunt-contrib-watch": "1.0.0",
+        "grunt-contrib-uglify": "1.0.1",
+        "grunt-contrib-cssmin": "1.0.1",
         "grunt-open": "0.2.3",
         "grunt-ts": "5.3.2"
     }

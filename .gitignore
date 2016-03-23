@@ -7,3 +7,7 @@ npm-debug.log
 demo/**/*.js
 
 *.tmp.txt
+
+dist/*
+!dist/main.min.css
+!dist/main.min.js

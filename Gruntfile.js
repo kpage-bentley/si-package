@@ -8,20 +8,38 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-open');
     grunt.loadNpmTasks('grunt-ts');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
 
     grunt.initConfig({
+
+        uglify: {
+            target: {
+                files: {
+                    "dist/main.min.js": ["dist/main.js"],
+                }
+            }
+        },
+
+        cssmin: {
+            target: {
+                files: {
+                    "dist/main.min.css": ["dist/main.css"]
+                }
+            }
+        },
 
         // Used to watch for when TypeScript and Less files are modified
         watch: {
             less: {
                 // if any .less file changes in directory "assets/css/" run the "less"-task.
                 files: "src/styles/*.less",
-                tasks: ["less"]
+                tasks: ["less", "cssmin"]
             },
             ts: {
                 // if any .ts files change, run the "ts"-task.
                 files: ["src/scripts/*.ts", "demo/**/*.ts"],
-                tasks: ["ts"],
+                tasks: ["ts", "uglify"],
                 options: {
                     spawn: false
                 }
@@ -64,11 +82,11 @@ module.exports = function (grunt) {
         // Used to launch index.html
         open: {
             default: {
-                path: 'http://localhost:7500/index.html'
+                path: "http://localhost:7500/index.html"
             }
         }
     });
 
     // the default task (running "grunt" in console)
-    grunt.registerTask('default', ['ts', 'less', 'connect', 'open', 'watch']);
+    grunt.registerTask('default', ['ts', 'less', 'uglify', 'cssmin', 'connect', 'open', 'watch']);
 };
