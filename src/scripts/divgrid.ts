@@ -3,7 +3,7 @@
 (d3 as any).divgrid = function (config) {
     var columns = [];
 
-    var dg = function(selection) {
+    var dg = function (selection) {
         if (columns.length == 0)
             columns = d3.keys(selection.data()[0][0]);
 
@@ -11,10 +11,10 @@
         selection.selectAll("table")
             .data([true])
             .enter().append("table")
-            .attr("class", "table");
+            .attr("class", "table table-hover")
 
         // Create Header
-        selection.select("table")
+        var table = selection.select("table")
             .selectAll("thead")
                 .data([true])
                 .enter().append("thead")
@@ -41,7 +41,7 @@
             .data(function (d) {
                 return d;
             });
-        rows.enter().append("tr");
+        rows.enter().append("tr")
         rows.exit().remove();
 
         var cells = rows.selectAll("td")
@@ -50,14 +50,11 @@
                     return d[col];
                 });
             });
-
         cells.enter().append("td");
-
-        cells.exit().remove();
-
-        tbody.selectAll("td").text(function (d) {
+        cells.text(function (d) {
             return d;
         });
+        cells.exit().remove();
 
         return dg;
     };

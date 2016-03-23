@@ -6,8 +6,8 @@ d3.divgrid = function (config) {
         selection.selectAll("table")
             .data([true])
             .enter().append("table")
-            .attr("class", "table");
-        selection.select("table")
+            .attr("class", "table table-hover");
+        var table = selection.select("table")
             .selectAll("thead")
             .data([true])
             .enter().append("thead")
@@ -38,10 +38,10 @@ d3.divgrid = function (config) {
             });
         });
         cells.enter().append("td");
-        cells.exit().remove();
-        tbody.selectAll("td").text(function (d) {
+        cells.text(function (d) {
             return d;
         });
+        cells.exit().remove();
         return dg;
     };
     dg.columns = function (_) {
