@@ -16,57 +16,27 @@
             .selectAll("th")
             .data(columns).enter()
             .append("th")
-            .text(function (d) { return d; });
+            .text(function (d) {
+                return d;
+            });
 
-        // Create tbody
+        // Create Rows
         table.append("tbody")
             .selectAll("tr")
-            .data(function (d) { return d; }).enter()
+            .data(function (d) {
+                return d;
+            }).enter()
             .append("tr")
-            .selectAll("td");
-
-        // ----- Old Code -----
-        /*
-        // header
-        selection.selectAll(".header")
-            .data([true])
-            .enter().append("div")
-            .attr("class", "header")
-
-        var header = selection.select(".header")
-            .selectAll(".cell")
-            .data(columns);
-
-        header.enter().append("div")
-            .attr("class", function(d,i) { return "col-" + i; })
-            .classed("cell", true)
-
-        selection.selectAll(".header .cell")
-            .text(function(d) { return d; });
-
-        header.exit().remove();
-
-        // rows
-        var rows2 = selection.selectAll(".row")
-            .data(function(d) { return d; })
-
-        rows2.enter().append("div")
-            .attr("class", "row")
-
-        rows2.exit().remove();
-
-        var cells = selection.selectAll(".row").selectAll(".cell")
-            .data(function(d) { return columns.map(function(col){return d[col];}) })
-
-        // cells
-        cells.enter().append("div")
-            .attr("class", function(d,i) { return "col-" + i; })
-            .classed("cell", true)
-
-        cells.exit().remove();
-
-        selection.selectAll(".cell")
-            .text(function(d) { return d; });*/
+            .selectAll("td")
+            .data(function (d) {
+                return columns.map(function (col){
+                    return d[col];
+                })
+            }).enter()
+            .append("td")
+            .text(function (d) {
+                return d;
+            });
 
         return dg;
     };

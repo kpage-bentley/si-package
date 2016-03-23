@@ -29,7 +29,7 @@ module si.package {
             ParcoordsDirective.that.$compile(graphDomElement)(scope);
 
             if (settings.showGrid) {
-                var gridDomElement = angular.element("<div class='parcoords-grid' align='center'></div>");
+                var gridDomElement = angular.element("<div class='parcoords-grid'></div>");
                 element.append(gridDomElement);
                 ParcoordsDirective.that.$compile(gridDomElement)(scope);
             }
@@ -73,7 +73,7 @@ module si.package {
                         d3.select(gridElement)
                             .datum(gridData.slice(0, 50))
                             .call(grid)
-                            .selectAll(".row")
+                            .selectAll("tbody tr")
                             .on("mouseover", (d) => {
                                 parcoords.highlight([d]);
                             })

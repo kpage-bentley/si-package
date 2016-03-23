@@ -9,12 +9,25 @@ d3.divgrid = function (config) {
             .selectAll("th")
             .data(columns).enter()
             .append("th")
-            .text(function (d) { return d; });
+            .text(function (d) {
+            return d;
+        });
         table.append("tbody")
             .selectAll("tr")
-            .data(function (d) { return d; }).enter()
+            .data(function (d) {
+            return d;
+        }).enter()
             .append("tr")
-            .selectAll("td");
+            .selectAll("td")
+            .data(function (d) {
+            return columns.map(function (col) {
+                return d[col];
+            });
+        }).enter()
+            .append("td")
+            .text(function (d) {
+            return d;
+        });
         return dg;
     };
     dg.columns = function (_) {
@@ -45,7 +58,7 @@ var si;
                 element.append(graphDomElement);
                 ParcoordsDirective.that.$compile(graphDomElement)(scope);
                 if (settings.showGrid) {
-                    var gridDomElement = angular.element("<div class='parcoords-grid' align='center'></div>");
+                    var gridDomElement = angular.element("<div class='parcoords-grid'></div>");
                     element.append(gridDomElement);
                     ParcoordsDirective.that.$compile(gridDomElement)(scope);
                 }
@@ -71,7 +84,7 @@ var si;
                             d3.select(gridElement)
                                 .datum(gridData.slice(0, 50))
                                 .call(grid)
-                                .selectAll(".row")
+                                .selectAll("tbody tr")
                                 .on("mouseover", function (d) {
                                 parcoords.highlight([d]);
                             })
