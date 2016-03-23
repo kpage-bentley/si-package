@@ -1,0 +1,1768 @@
+/* Version 1.0.2 */
+
+﻿@import url('font-awesome.min.css');
+
+/* Standard color scheme */
+@blue-01: #00121D;
+@default-navy: #002A44;
+@blue-03: #00426B;
+@blue-04: #005A92;
+@blue-05: #0073BA;
+@default-blue: #008BE1;
+@blue-07: #30B0FF;
+@blue-08: #58BFFF;
+@blue-09: #7FCEFF;
+@blue-10: #A6DDFF;
+@blue-11: #CDECFF;
+
+@green-01: #010200;
+@green-02: #122306;
+@green-03: #23450B;
+@green-04: #346711;
+@green-05: #458816;
+@default-green: #56AA1C;
+@green-07: #5FBB1F;
+@green-08: #67CC22;
+@green-09: #91E458;
+@green-10: #B2EC8B;
+@green-11: #D4F4BD;
+
+@gray-01: #070809;
+@gray-02: #2A2F34;
+@gray-03: #3C434A;
+@gray-04: #4D575F;
+@gray-05: #677480;
+@gray-06: #85929D;
+@default-gray: #9BA5AE;
+@gray-08: #A6AFB7;
+@gray-09: #C7CCD1;
+@gray-10: #DCE0E3;
+@gray-11: #EEF0F3;
+
+@default-orange: #FF9800;
+@default-red: #F44336;
+@black: #000;
+@white: #FFF;
+
+/* Additional colors sceme */
+@teal-01: #2b9b1b;
+@teal-02: #2b9b2f;
+@teal-03: #2b9b43;
+@teal-04: #2b9b57;
+@teal-05: #2b9b6b;
+
+@teal-default: #2b9b7f;
+
+@teal-06: #2b9b93;
+@teal-07: #2b9ba7;
+@teal-08: #2b9bbb;
+@teal-09: #2b9bcf;
+@teal-10: #2b9be3;
+
+@green-highlight: #eef6e8;
+@orange-highlight: #fff8e1;
+@red-highlight: #ffebee;
+
+/* ---- Backgrounds ---- */
+
+.white {background: @white;}
+
+.default-navy {background: @default-navy;}
+.default-blue {background: @default-blue;}
+.default-green {background: @default-green;}
+.default-gray {background: @default-gray;}
+.default-orange {background: @default-orange;}
+.default-red {background: @default-red;}
+
+.gray-01 {background: @gray-01;}
+.gray-02 {background: @gray-02;}
+.gray-03 {background: @gray-03;}
+.gray-04 {background: @gray-04;}
+.gray-05 {background: @gray-05;}
+.gray-06 {background: @gray-06;}
+.gray-08 {background: @gray-08;}
+.gray-09 {background: @gray-09;}
+.gray-10 {background: @gray-10;}
+.gray-11 {background: @gray-11;}
+
+.blue-01 {background: @blue-01;}
+.blue-03 {background: @blue-03;}
+.blue-04 {background: @blue-04;}
+.blue-05 {background: @blue-05;}
+.blue-07 {background: @blue-07;}
+.blue-08 {background: @blue-08;}
+.blue-09 {background: @blue-09;}
+.blue-10 {background: @blue-10;}
+.blue-11 {background: @blue-11;}
+
+.green-01 {background: @green-01;}
+.green-02 {background: @green-02;}
+.green-03 {background: @green-03;}
+.green-04 {background: @green-04;}
+.green-05 {background: @green-05;}
+.green-07 {background: @green-07;}
+.green-08 {background: @green-08;}
+.green-09 {background: @green-09;}
+.green-10 {background: @green-10;}
+.green-11 {background: @green-11;}
+
+.teal-01 {background: #2b9b1b;}
+.teal-02 {background: #2b9b2f;}
+.teal-03 {background: #2b9b43;}
+.teal-04 {background: #2b9b57;}
+.teal-05 {background: #2b9b6b;}
+
+.teal-default {background: #2b9b7f;}
+
+.teal-06 {background: #2b9b93;}
+.teal-07 {background: #2b9ba7;}
+.teal-08 {background: #2b9bbb;}
+.teal-09 {background: #2b9bcf;}
+.teal-10 {background:  #2b9be3;}
+
+
+@default-border: 1px solid @gray-10; /* Our standard border style and color */
+@default-padding: 15px; /* Standard padding size */
+@radius: 3px; /* Standard border radius */
+@default-font-size: 14px; /* Standard font size */
+
+/* ---- Body style declarations ---- */
+body {
+    font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial, sans-serif;
+    font-size: @default-font-size;
+    line-height: 1.5;
+    color: @gray-02;
+}
+
+/* ---- Default link style declarations ---- */
+a {
+    color: @default-blue;
+    text-decoration:none;
+}
+
+    a:hover {
+        color: @blue-04;
+        text-decoration: underline;
+    }
+
+/* ---- Typograhy ---- */
+h1, h2, h3, h4, h5 {
+    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial, sans-serif;
+}
+
+h1 {
+    font-size: 55px;
+    font-weight: 300;
+}
+
+h2 {
+    font-size: 34px;
+    font-weight: 300;
+}
+
+h3 {
+    font-size: 21px;
+    font-weight: 400;
+}
+
+h4 {
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: none;
+}
+
+h5 {
+    font-size: @default-font-size;
+    font-weight: 600;
+}
+
+/* ---- Buttons ---- */
+/*Default button style */
+.btn {
+    padding: 12px 15px;
+    border-radius: @radius;
+    line-height: 14px;
+    color: @white;
+    outline: none;
+    border: none;
+    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial, sans-serif;
+    font-size: @default-font-size;
+    background-color: @default-blue;
+    text-decoration:none;
+}
+
+    .btn:hover {
+        background-color: @blue-05;
+        color: @white;
+    }
+
+    .btn:active,
+    .btn:focus {
+        background-color: @default-blue;
+        color: @white;
+        outline: none;
+        box-shadow: none;
+    }
+
+/*Primary button style */
+.btn-primary {
+    background-color: @default-green;
+}
+
+    .btn-primary:hover {
+        background-color: @green-05;
+    }
+
+    .btn-primary:active,
+    .btn-primary:focus {
+        background-color: @default-green;
+        color: @white;
+    }
+
+/*Secondary button style */
+.btn-secondary {
+    background-color: transparent;
+    border:1px solid @gray-06;
+    color: @gray-03;
+    padding-top:11px;
+    padding-bottom:11px;
+}
+
+    .btn-secondary:hover {
+        background-color: transparent;
+        border:1px solid @gray-04;
+        color: @gray-01;
+    }
+
+    .btn-secondary:active,
+    .btn-secondary:focus {
+        background-color: transparent;
+        border:1px solid @gray-06;
+        color: @gray-03;
+    }
+
+/*Disabled button state*/
+.btn-disabled, .btn-disabled:hover, .btn[disabled] {
+    opacity: 0.4;
+    background-color: @default-gray;
+    border: 0;
+    cursor: default;
+    color:@white;
+}
+
+/* ---- Toggles ---- */
+
+.toggle {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    width: 68px;
+    height: 38px;
+    border-radius: 3px;
+    cursor: pointer;
+    color: @white;
+}
+
+label.toggle {
+    margin-bottom:0;
+}
+
+.toggle-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.toggle-label {
+    position: relative;
+    display: block;
+    height: inherit;
+    font-size: 12px;
+    font-weight: 400;
+    background: @gray-06;
+    color: @white;
+    border-radius: inherit;
+    -webkit-transition: 0.15s ease-out;
+    -moz-transition: 0.15s ease-out;
+    -o-transition: 0.15s ease-out;
+    transition: 0.15s ease-out;
+    -webkit-transition-property: opacity background;
+    -moz-transition-property: opacity background;
+    -o-transition-property: opacity background;
+    transition-property: opacity background;
+}
+
+    .toggle-label:before, .toggle-label:after {
+        position: absolute;
+        top: 50%;
+        margin-top: -.5em;
+        line-height: 1;
+        -webkit-transition: inherit;
+        -moz-transition: inherit;
+        -o-transition: inherit;
+        transition: inherit;
+    }
+
+    .toggle-label:before {
+        content: attr(data-off);
+        right: 9px;
+    }
+
+    .toggle-label:after {
+        content: attr(data-on);
+        left: 9px;
+        color: #FFF;
+        opacity: 0;
+    }
+
+.toggle-input:checked ~ .toggle-label {
+    background: @default-green;
+}
+
+    .toggle-input:checked ~ .toggle-label:before {
+        opacity: 0;
+    }
+
+    .toggle-input:checked ~ .toggle-label:after {
+        opacity: 1;
+    }
+
+.toggle-handle {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 30px;
+    height: 30px;
+    background: #FFF;
+    border-radius: 3px;
+    -webkit-transition: left 0.15s ease-out;
+    -moz-transition: left 0.15s ease-out;
+    -o-transition: left 0.15s ease-out;
+    transition: left 0.15s ease-out;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.1);
+}
+
+.toggle-input:checked ~ .toggle-handle {
+    left: 34px;
+}
+
+
+
+/* Blue toggle */
+.toggle-blue > .toggle-input:checked ~ .toggle-label {
+    background: @default-blue;
+}
+
+/* Disabled toggle */
+.toggle.disabled {
+    opacity: .4;
+    cursor: default;
+}
+
+/* ----Sliders ---- */
+.slider-body {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+}
+
+    .slider-body input {
+        display: none;
+    }
+
+/* Slider track */
+.slider .slider-body .slider-track {
+    position: absolute;
+    cursor: pointer;
+    background-color: @gray-10;
+}
+
+.slider .slider-body .slider-selection {
+    position: absolute;
+    background-color: @default-gray;
+}
+
+/* Slider handle */
+.slider-handle {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: @gray-04;
+    background-repeat: repeat-x;
+    border: 0px solid transparent;
+}
+
+    .slider-handle:hover,
+    .slider-handle:active {
+        background: @gray-02;
+    }
+
+    .slider-handle.round {
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        border-radius: 20px;
+    }
+
+    .slider-handle.hide {
+        display: none;
+    }
+
+/* Horizontal slider */
+.slider-body.slider-horizontal {
+    width: 210px;
+    height: 16px;
+}
+
+.slider .slider-body.slider-horizontal .slider-track {
+    height: 4px;
+    width: 100%;
+    margin-top: -3px;
+    top: 50%;
+    left: 0;
+}
+
+.slider .slider-body.slider-horizontal .slider-selection {
+    height: 100%;
+    top: 0;
+    bottom: 0;
+}
+
+.slider-body.slider-horizontal .slider-handle {
+    margin-left: -6px;
+    margin-top: -4px;
+}
+/* Vertical slider */
+.slider-body.slider-vertical {
+    height: 210px;
+    width: 20px;
+}
+
+.slider .slider-body.slider-vertical .slider-track {
+    width: 10px;
+    height: 100%;
+    margin-left: -5px;
+    left: 50%;
+    top: 0;
+}
+
+.slider .slider-body.slider-vertical .slider-selection {
+    width: 100%;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.slider-body.slider-vertical .slider-handle {
+    margin-left: -5px;
+    margin-top: -10px;
+}
+
+/* Slider range number */
+.range-number {
+    color: @gray-05;
+    margin: 0 10px;
+}
+
+/* Accent colors*/
+.slider.blue-slider .slider-body .slider-selection {
+    background-color: @blue-08;
+}
+
+.slider.green-slider .slider-body .slider-selection {
+    background-color: @green-08;
+}
+
+
+/* Disabled slider */
+.slider-disabled .slider-handle {
+    cursor: not-allowed;
+    opacity: 0.4;
+}
+
+/* ----Wizards ---- */
+.wizard {
+    display: table;
+    width: 100%;
+    position: relative;
+}
+
+    .wizard .steps {
+        display: table-row;
+        text-align: justify;
+    }
+
+        .wizard .steps:after {
+            content: '';
+            width: 100%; /* Ensures there are at least 2 lines of text, so justification works */
+            display: inline-block;
+        }
+
+        .wizard .steps .step {
+            display: inline-block;
+            text-align: center;
+            position: relative;
+            width: auto;
+            font-size: 12px;
+            color: @gray-08;
+            display: inline;
+            float: left;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAACAQMAAAC+IjAnAAAAA1BMVEXc4ONElLGgAAAAFUlEQVR4Xs3AgQAAAACAoP2p16hQAwCYAAG2pFVuAAAAAElFTkSuQmCC') /*../media/ui-library/wizard-step-bg.png*/ center 11px no-repeat;
+            *background: url('../media/ui-library/wizard-step-bg.png') center 11px no-repeat; /* For IE 6 and 7 */
+        }
+
+        .wizard .steps[data-steps='2'] .step {
+            width: 50%;
+        }
+
+        .wizard .steps[data-steps='3'] .step {
+            width: 33.3%;
+        }
+
+        .wizard .steps[data-steps='4'] .step {
+            width: 25%;
+        }
+
+        .wizard .steps[data-steps='5'] .step {
+            width: 20%;
+        }
+
+        .wizard .steps[data-steps='6'] .step {
+            width: 16.6%;
+        }
+
+        .wizard .steps[data-steps='7'] .step {
+            width: 14.2%;
+        }
+
+        .wizard .steps[data-steps='8'] .step {
+            width: 12.5%;
+        }
+
+        .wizard .steps[data-steps='9'] .step {
+            width: 11.1%;
+        }
+
+        .wizard .steps[data-steps='10'] .step {
+            width: 10%;
+        }
+
+
+        .wizard .steps .step a {
+            color: @gray-08;
+            display: inline;
+        }
+
+        .wizard .steps .step.completed a,
+        .wizard .steps .step.first.completed a {
+            pointer-events: all;
+            cursor: auto;
+            color: @default-green;
+        }
+
+            .wizard .steps .step.completed a:hover,
+            .wizard .steps .step.first.completed a:hover,
+            .wizard .steps .step.first.current a:hover,
+            .wizard .steps .step.current a:hover {
+                text-decoration: none;
+            }
+
+        .wizard .steps .step.first.current a,
+        .wizard .steps .step.current a {
+            color: @default-green;
+        }
+
+
+        .wizard .steps .step p {
+            margin: 5px 0 0 0;
+        }
+
+        .wizard .steps .step .step-bullet {
+            width: 23px;
+            height: 23px;
+            text-align: center;
+            padding: 2px 0;
+            font-size: 12px;
+            font-weight: normal;
+            border-radius: 15px;
+            background: #fff;
+            border: 1px solid @gray-10;
+            color: @gray-08;
+            display: inline-block;
+            vertical-align: top;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+        }
+
+        .wizard .steps .step.first,
+        .wizard .steps .step.first.current {
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAACAgMAAAD5gkr3AAAACVBMVEX////c4OPc4OMUXdB6AAAAAnRSTlMAAHaTzTgAAAAdSURBVHhezc4xAQAAAMIg7d9kKS2xQxIQT/GctgYum2OfJxYPegAAAABJRU5ErkJggg==') /*../media/ui-library/wizard-step-first-bg.png*/ center 11px no-repeat;
+            *background: url('../media/ui-library/wizard-step-first-bg.png') center 11px no-repeat; /* For IE 6 and 7 */
+        }
+
+            .wizard .steps .step.first.current {
+                color: @default-green;
+                font-weight: 700;
+            }
+
+        .wizard .steps .step.last {
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAACAgMAAAD5gkr3AAAACVBMVEX////c4OPc4OMUXdB6AAAAAnRSTlMAAHaTzTgAAAAdSURBVHhezc4xAQAAAMKgRTOvKS2xQxJAPUFz2hqpE2QdYHSLAgAAAABJRU5ErkJggg==') /*/assets/media/ui-library/wizard-step-last-bg.png*/ center 11px no-repeat;
+            *background: url(/assets/media/ui-library/wizard-step-last-bg.png) center 11px no-repeat; /* For IE 6 and 7 */
+        }
+
+        .wizard .steps .step.completed {
+            color: @default-green;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAACAQMAAAC+IjAnAAAAA1BMVEVWqhyPomf0AAAAFUlEQVR4Xs3AgQAAAACAoP2p16hQAwCYAAG2pFVuAAAAAElFTkSuQmCC') /*/assets/media/ui-library/wizard-step-completed-bg.png*/ center 11px no-repeat;
+            *background: url(/assets/media/ui-library/wizard-step-completed-bg.png) center 11px no-repeat; /* For IE 6 and 7 */
+        }
+
+            .wizard .steps .step.completed .step-bullet {
+                border-color: @default-green;
+                color: @default-green;
+            }
+
+        .wizard .steps .step.first.completed {
+            color: @default-green;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAACAgMAAAD5gkr3AAAACVBMVEX///9WqhxWqhysBneJAAAAAnRSTlMAAHaTzTgAAAAdSURBVHhezc4xAQAAAMIg7d9kKS2xQxIQT/GctgYum2OfJxYPegAAAABJRU5ErkJggg==') /*/assets/media/ui-library/wizard-step-first-completed-bg.png*/ center 11px no-repeat;
+            *background: url(/assets/media/ui-library/wizard-step-first-completed-bg.png) center 11px no-repeat; /* For IE 6 and 7 */
+        }
+
+        .wizard .steps .step.current {
+            color: @default-green;
+            font-weight: 700;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAACAQMAAAC+IjAnAAAABlBMVEVWqhzc4OO8BrFPAAAAHElEQVR4Xq3MMQEAAADCIBvYP61W2DECEKQjzOtz9knVh7BrZAAAAABJRU5ErkJggg==') /*/assets/media/ui-library/wizard-step-current-bg.png*/ center 11px no-repeat;
+            *background: url(/assets/media/ui-library/wizard-step-current-bg.png) center 11px no-repeat; /* For IE 6 and 7 */
+        }
+
+            .wizard .steps .step.current .step-bullet {
+                border-color: @default-green;
+                background: @default-green;
+                color: @white;
+            }
+
+        .wizard .steps .step.last.completed,
+        .wizard .steps .step.last.current {
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAACAgMAAAD5gkr3AAAACVBMVEX///9WqhxWqhysBneJAAAAAnRSTlMAAHaTzTgAAAAdSURBVHhezc4xAQAAAMKgRTOvKS2xQxJAPUFz2hqpE2QdYHSLAgAAAABJRU5ErkJggg==') /*/assets/media/ui-library/wizard-step-last-completed-bg.png*/ center 11px no-repeat;
+            *background: url(/assets/media/ui-library/wizard-step-last-completed-bg.png) center 11px no-repeat; /* For IE 6 and 7 */
+        }
+
+            .wizard .steps .step.last.completed .step-bullet {
+                background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAJCAMAAADepFZYAAAAhFBMVEX///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9hWbqAAAAAK3RSTlMAzYEg3BmuT+OoBiUoAjHpnAOkBDrvjwEj37AHRPQc18r4/nMWzvxjELtX0apFgwAAAFJJREFUeF5FjEUSxDAAw5yUmZm7vP7//zqdQnyyDhLUDGEp0HSaN/g2HReeDHYII8YJIJhmQF6wrADUDduuHygPYZw4L+vj8p8vvj+q/f39z7cB/CAFDvYw1wQAAAAASUVORK5CYII=') /*/assets/media/ui-library/icon-wizard-checkbox.png*/ center 6px no-repeat @default-green;
+                *background: url(/assets/media/ui-library/icon-wizard-checkbox.png) center 6px no-repeat @default-green; /* For IE 6 and 7 */
+            }
+
+    /* Advanced wizard */
+
+    .wizard.advanced .steps .step,
+    .wizard.advanced .steps .step.current {
+        text-align: left;
+        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAACAQMAAADYYnPEAAAAA1BMVEXc4ONElLGgAAAAFUlEQVR4Xq3AgQAAAACAoP2pl6ioAQBOAAH+sIwpAAAAAElFTkSuQmCC') /*/assets/media/ui-library/wizard-advanced-step-bg.png*/ 0 11px no-repeat;
+        *background: url(/assets/media/ui-library/wizard-advanced-step-bg.png) 0 11px no-repeat; /* For IE 6 and 7 */
+    }
+
+        .wizard.advanced .steps .step.completed,
+        .wizard.advanced .steps .step.first.completed {
+            text-align: left;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAACAQMAAADYYnPEAAAAA1BMVEVWqhyPomf0AAAAFUlEQVR4Xq3AgQAAAACAoP2pl6ioAQBOAAH+sIwpAAAAAElFTkSuQmCC') /*/assets/media/ui-library/wizard-advanced-step-completed-bg.png*/ 0 11px no-repeat;
+            *background: url(/assets/media/ui-library/wizard-advanced-step-completed-bg.png) 0 11px no-repeat; /* For IE 6 and 7 */
+        }
+
+        .wizard.advanced .steps .step.last,
+        .wizard.advanced .steps .step.last.current,
+        .wizard.advanced .steps .step.last.completed {
+            background: none;
+        }
+
+    .wizard.advanced .lead {
+        color: @gray-01;
+        font-size: 22px;
+        margin-bottom: 0;
+        font-weight: 300;
+    }
+
+        .wizard.advanced .lead .step-count {
+            color: @gray-08;
+        }
+
+
+/* ---- Tooltip ---- */
+.tooltip {
+    position: absolute;
+    z-index: 1020;
+    display: block;
+    visibility: visible;
+    padding: 5px;
+    font-size: 11px;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+    .tooltip.in {
+        opacity: .8;
+        filter: alpha(opacity=80);
+    }
+
+    .tooltip.top {
+        margin-top: -2px;
+    }
+
+    .tooltip.right {
+        margin-left: 2px;
+    }
+
+    .tooltip.bottom {
+        margin-top: 2px;
+    }
+
+    .tooltip.left {
+        margin-left: -2px;
+    }
+
+    .tooltip.top .tooltip-arrow {
+        bottom: 2px;
+        left: 50%;
+        margin-left: -3px;
+        border-left: 3px solid transparent;
+        border-right: 3px solid transparent;
+        border-top: 3px solid @gray-01;
+    }
+
+    .tooltip.left .tooltip-arrow {
+        top: 50%;
+        right: 0;
+        margin-top: -5px;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-left: 5px solid @gray-01;
+    }
+
+    .tooltip.bottom .tooltip-arrow {
+        top: 0;
+        left: 50%;
+        margin-left: -5px;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 5px solid @gray-01;
+    }
+
+    .tooltip.right .tooltip-arrow {
+        top: 50%;
+        left: 0;
+        margin-top: -5px;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-right: 5px solid @gray-01;
+    }
+
+.tooltip-inner {
+    max-width: 200px;
+    padding: 5px 8px;
+    color: @gray-11;
+    text-align: center;
+    text-decoration: none;
+    background-color: @gray-01;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.tooltip-arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+/* ----Navigation components ---- */
+
+/*Vertical tabs*/
+.tabs {
+    list-style: none;
+    padding: 0;
+}
+
+.tabs li {
+    display:block;
+    position:relative;
+}
+
+    .tabs li a {
+        padding: 11px 15px;
+        border: 1px solid @gray-10;
+        display: block;
+        line-height: 1;
+        margin-bottom: -1px;
+        color: @gray-02;
+        position: relative;
+    }
+
+        .tabs li a:hover {
+            text-decoration: none;
+            color: @gray-04;
+        }
+
+        .tabs li a:after {
+            content: '';
+            position: absolute;
+            z-index: 1;
+            -webkit-transition: all 0.5s;
+            -moz-transition: all 0.5s;
+            transition: all 0.5s;
+            width: 2px;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: @default-blue;
+            opacity: 0;
+        }
+
+
+        .tabs li a:hover:after {
+            opacity: 1;
+        }
+
+    .tabs li.active a:after {
+        content: '';
+        position: absolute;
+        z-index: 1;
+        width: 2px;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: @default-blue;
+        opacity: 1;
+    }
+
+
+    .tabs li.active a {
+        font-weight: 700;
+    }
+
+    /*Horizontal tabs*/
+
+    .tabs.horizontal li {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        float: left;
+        margin-right: -1px;
+    }
+
+        .tabs.horizontal li a {
+            margin-bottom: 0;
+            background: #f8f8f8;
+        }
+
+            .tabs.horizontal li a:after {
+                content: '';
+                position: absolute;
+                z-index: 1;
+                -webkit-transition: all 0.5s;
+                -moz-transition: all 0.5s;
+                transition: all 0.5s;
+                width: 100%;
+                height: 2px;
+                top: 0;
+                left: 0;
+                background: @default-blue;
+                opacity: 0;
+            }
+
+
+            .tabs.horizontal li a:hover:after {
+                opacity: 1;
+            }
+
+        .tabs.horizontal li.active a {
+            border-bottom: none;
+            background: @white;
+        }
+
+            .tabs.horizontal li.active a:after {
+                content: '';
+                position: absolute;
+                z-index: 2;
+                width: 100%;
+                height: 2px;
+                top: 0;
+                left: 0;
+                background: @default-blue;
+                opacity: 1;
+            }
+
+    /*Subnavigation*/
+    .tabs ul {
+        display: none;
+    }
+
+    .tabs li.active ul {
+        display: block;
+    }
+
+    .tabs li ul {
+        list-style: none;
+        border-right: 1px solid @gray-10;
+        border-left: 1px solid @gray-10;
+        padding: 5px 0;
+    }
+
+        .tabs li ul li a {
+            border: none;
+            font-weight: 400;
+            font-size: 13px;
+            color: @gray-04;
+        }
+
+    .tabs li.active ul li a {
+        font-weight: 400;
+    }
+
+        .tabs li.active ul li a:after {
+            background: none;
+        }
+
+    .tabs li ul li a:hover:after {
+        opacity: 0;
+    }
+
+    .tabs li ul li a:hover {
+        color: @gray-05;
+    }
+
+    .tabs li ul li.active a {
+        font-weight: 700;
+    }
+
+    /*Green highlight*/
+
+    .tabs.highlight-green li a:after {
+        background-color: @default-green;
+    }
+
+    .tabs.horizontal.highlight-green li a:after {
+        background-color: @default-green;
+    }
+
+    /*Green and blue background*/
+
+    .tabs.bg-green {
+        background-color: @default-green;
+    }
+
+    .tabs.bg-blue {
+        background-color: @default-blue;
+    }
+
+    .tabs.bg-green li a {
+        border: 1px solid @green-05;
+    }
+
+    .tabs.bg-blue li a {
+        border: 1px solid @blue-07;
+    }
+
+    .tabs.bg-green li a,
+    .tabs.bg-blue li a {
+        border-right: none;
+        border-left: none;
+        margin-bottom: -1px;
+        color: @white;
+        -webkit-transition: all 0.5s;
+        -moz-transition: all 0.5s;
+        transition: all 0.5s;
+    }
+
+
+
+        .tabs.bg-green li a:hover {
+            text-decoration: none;
+            color: @white;
+            background: darken(@default-green, 5%);
+        }
+
+    .tabs.bg-green li.active a {
+        background: darken(@default-green, 5%);
+    }
+
+    .tabs.bg-blue li a:hover {
+        text-decoration: none;
+        color: @white;
+        background: lighten(@default-blue, 5%);
+    }
+
+    .tabs.bg-blue li.active a {
+        background: lighten(@default-blue, 5%);
+    }
+
+
+    .tabs.bg-green li ul,
+    .tabs.bg-blue li ul {
+        border: none;
+    }
+
+    .tabs.bg-green li.active ul li a,
+    .tabs.bg-blue li.active ul li a {
+        border: none;
+        background: none;
+    }
+
+        .tabs.bg-green li.active ul li a:hover,
+        .tabs.bg-blue li.active ul li a:hover {
+            text-decoration: none;
+            color: @white;
+            background: none;
+            opacity: 0.8;
+        }
+
+/* ----Tiles components ---- */
+
+.tile {
+    text-align: center;
+    padding: 34px 21px;
+    min-height:308px;
+    transition: all 0.2s ease-out;
+    -webkit-transition: all 0.2s ease-out;
+}
+
+.tile.minimal {
+    min-height:154px;
+}
+
+.tile .icon {
+    width: 48px;
+    height:48px;
+    margin: 0 auto;
+}
+
+.tile .icon.rounded {
+    border-radius:50px;
+    width: 64px;
+    height:64px;
+    padding:8px;
+}
+
+.tile .lead {
+    margin:21px auto;
+    font-weight:300;
+    font-size:21px;
+}
+
+.tile a .lead {
+    color: @gray-04;
+}
+
+.tile:hover a,
+.tile:hover a .lead {
+    color: @white;
+}
+
+.tile a:hover {
+    color: @gray-03;
+    text-decoration:none;
+}
+
+.tile.featured a .lead {
+    color: @white;
+}
+
+.tile ul {
+          list-style: none;
+          padding:0;
+          margin-bottom: none;
+      }
+
+      .tile ul li a {
+                line-height:1.7;
+                color: @gray-03;
+                font-size:13px;
+            }
+      .tile ul li a:hover {
+          text-decoration:underline;
+          color: @white;
+      }
+
+      .tile.featured ul li a {
+                color: @white;
+            }
+
+/*Default tiles colors*/
+.tile.default-green,
+.tile.teal-01,
+.tile.teal-02,
+.tile.teal-03,
+.tile.teal-04,
+.tile.teal-05,
+.tile.teal-default,
+.tile.teal-06,
+.tile.teal-07,
+.tile.teal-08,
+.tile.teal-09,
+.tile.teal-10,
+.tile.default-blue,
+.tile.blue-05,
+.tile.blue-04,
+.tile.blue-03,
+.tile.default-navy {background: @gray-11;}
+
+.tile.default-green .icon.rounded,
+.tile.default-green:hover {background: @default-green;}
+
+.tile.teal-01 .icon.rounded,
+.tile.teal-01:hover {background: @teal-01;}
+
+.tile.teal-02 .icon.rounded,
+.tile.teal-02:hover {background: @teal-02;}
+
+.tile.teal-03 .icon.rounded,
+.tile.teal-03:hover {background: @teal-03;}
+
+.tile.teal-04 .icon.rounded,
+.tile.teal-04:hover {background: @teal-04;}
+
+.tile.teal-05 .icon.rounded,
+.tile.teal-05:hover {background: @teal-05;}
+
+.tile.teal-default .icon.rounded,
+.tile.teal-default:hover {background: @teal-default;}
+
+.tile.teal-06 .icon.rounded,
+.tile.teal-06:hover {background: @teal-06;}
+
+.tile.teal-07 .icon.rounded,
+.tile.teal-07:hover {background: @teal-07;}
+
+.tile.teal-08 .icon.rounded,
+.tile.teal-08:hover {background: @teal-08;}
+
+.tile.teal-09 .icon.rounded,
+.tile.teal-09:hover {background: @teal-09;}
+
+.tile.teal-10 .icon.rounded,
+.tile.teal-10:hover {background: @teal-10;}
+
+.tile.default-blue .icon.rounded,
+.tile.default-blue:hover {background: @default-blue;}
+
+.tile.blue-05 .icon.rounded,
+.tile.blue-05:hover {background: @blue-05;}
+
+.tile.blue-04 .icon.rounded,
+.tile.blue-04:hover {background: @blue-04;}
+
+.tile.blue-03 .icon.rounded,
+.tile.blue-03:hover {background: @blue-03;}
+
+.tile.default-navy .icon.rounded,
+.tile.default-navy:hover {background: @default-navy;}
+
+/*Featured tiles colors*/
+.tile.featured.default-green {background: @default-green;}
+.tile.featured.teal-01 {background: @teal-01;}
+.tile.featured.teal-02 {background: @teal-02;}
+.tile.featured.teal-03 {background: @teal-03;}
+.tile.featured.teal-04 {background: @teal-04;}
+.tile.featured.teal-05 {background: @teal-05;}
+.tile.featured.teal-default {background: @teal-default;}
+.tile.featured.teal-06 {background: @teal-06;}
+.tile.featured.teal-07 {background: @teal-07;}
+.tile.featured.teal-08 {background: @teal-08;}
+.tile.featured.teal-09 {background: @teal-09;}
+.tile.featured.teal-10 {background: @teal-10;}
+.tile.featured.default-blue {background: @default-blue;}
+.tile.featured.blue-05 {background: @blue-05;}
+.tile.featured.blue-04 {background: @blue-04;}
+.tile.featured.blue-03 {background: @blue-03;}
+.tile.featured.default-navy {background: @default-navy;}
+
+
+.tile.featured.default-green:hover {background: darken(@default-green, 5%);}
+.tile.featured.teal-01:hover {background: darken(@teal-01, 5%);}
+.tile.featured.teal-02:hover {background: darken(@teal-02, 5%);}
+.tile.featured.teal-03:hover {background: darken(@teal-03, 5%);}
+.tile.featured.teal-04:hover {background: darken(@teal-04, 5%);}
+.tile.featured.teal-05:hover {background: darken(@teal-05, 5%);}
+.tile.featured.teal-default:hover {background: darken(@teal-default, 5%);}
+.tile.featured.teal-06:hover {background: darken(@teal-06, 5%);}
+.tile.featured.teal-07:hover {background: darken(@teal-07, 5%);}
+.tile.featured.teal-08:hover {background: darken(@teal-08, 5%);}
+.tile.featured.teal-09:hover {background: darken(@teal-09, 5%);}
+.tile.featured.teal-10:hover {background: darken(@teal-10, 5%);}
+.tile.featured.default-blue:hover {background: darken(@default-blue, 5%);}
+.tile.featured.blue-05:hover {background: darken(@blue-05, 5%);}
+.tile.featured.blue-04:hover {background: darken(@blue-04, 5%);}
+.tile.featured.blue-03:hover {background: darken(@blue-03, 5%);}
+.tile.featured.default-navy:hover {background: darken(@default-navy, 5%);}
+
+/* ----Forms components ---- */
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: 38px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: @gray-02;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid @gray-09;
+    border-radius: 3px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.form-control:focus {
+  border-color: @gray-09;  
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(205, 236, 255, .0), 0px 0px 0px 2px rgba(205,236,255,0.5);
+          box-shadow: inset 0 1px 1px rgba(205, 236, 255, .0), 0px 0px 0px 2px rgba(205,236,255,0.5);
+}
+.form-control::-moz-placeholder {
+  color: @gray-09;
+  opacity: 1;
+}
+.form-control:-ms-input-placeholder {
+  color: @gray-09;
+}
+.form-control::-webkit-input-placeholder {
+  color: @gray-09;
+}
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+  cursor: not-allowed;
+  background-color: @gray-11;
+  opacity: 1;
+ color: @gray-09;
+}
+
+select.form-control {
+    box-shadow: none;
+    -webkit-box-shadow:none;
+}
+
+/*Fields validation*/
+.has-success .help-block,
+.has-success .control-label,
+.has-success .radio,
+.has-success .checkbox,
+.has-success .radio-inline,
+.has-success .checkbox-inline {
+  color: @default-green;
+}
+.has-success .form-control {
+  border-color: @default-green;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+.has-success .form-control:focus {
+  border-color: @default-green;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .0), 0px 0px 0px 2px rgba(212,244,189,0.5);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .0), 0px 0px 0px 2px rgba(212,244,189,0.5);
+}
+.has-success .input-group-addon {
+  color: @default-green;
+  background-color: @green-11;
+  border-color: @default-green;
+}
+.has-success .form-control-feedback {
+  color: @default-green;
+}
+
+.has-success .message {
+    color: @default-green;
+    font-size:13px;
+}
+
+.has-warning .help-block,
+.has-warning .control-label,
+.has-warning .radio,
+.has-warning .checkbox,
+.has-warning .radio-inline,
+.has-warning .checkbox-inline,
+.has-warning.radio label,
+.has-warning.checkbox label,
+.has-warning.radio-inline label,
+.has-warning.checkbox-inline label {
+  color: @default-orange;
+}
+.has-warning .form-control {
+  border-color: @default-orange;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+.has-warning .form-control:focus {
+  border-color:@default-orange;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .0), 0px 0px 0px 2px rgba(230,126,34,0.2);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .0), 0px 0px 0px 2px rgba(230,126,34,0.2);
+}
+.has-warning .input-group-addon {
+  color: @default-orange;
+  background-color: rgba(230,126,34,0.2);
+  border-color: #e67e22;
+}
+.has-warning .form-control-feedback {
+    color: @default-orange;
+}
+
+.has-warning .message {
+    color: @default-orange;
+    font-size:13px;
+}
+
+.has-error .help-block,
+.has-error .control-label,
+.has-error .radio,
+.has-error .checkbox,
+.has-error .radio-inline,
+.has-error .checkbox-inline,
+.has-error.radio label,
+.has-error.checkbox label,
+.has-error.radio-inline label,
+.has-error.checkbox-inline label {
+  color: @default-red;
+}
+.has-error .form-control {
+  border-color: @default-red;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+.has-error .form-control:focus {
+  border-color: @default-red;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0px 0px 0px 2px rgba(231,76,60,0.15);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0px 0px 0px 2px rgba(231,76,60,0.15);
+}
+
+.has-error .input-group-addon {
+  color: @default-red;
+  background-color: #f2dede;
+  border-color: @default-red;
+}
+.has-error .form-control-feedback {
+  color: @default-red;
+}
+.has-error .message {
+    color: @default-red;
+    font-size:13px;
+}
+
+/*Validation icons for text fields*/
+
+.has-error input[type="text"] {
+    background: url(../media/ui-library/icon-form-error.png) right 8px no-repeat;
+    padding-right: 30px;
+}
+
+.has-warning input[type="text"] {
+    background: url(../media/ui-library/icon-form-warning.png) right 8px no-repeat;
+    padding-right: 30px;
+}
+
+.has-success input[type="text"] {
+    background: url(../media/ui-library/icon-form-success.png) right 9px no-repeat;
+    padding-right: 30px;
+}
+
+/* ----Tables ---- */
+.table thead tr th, 
+.table tbody tr th, 
+.table tfoot tr th, 
+.table thead tr td,
+.table tbody tr td, 
+.table tfoot tr td {
+padding: 15px;
+line-height: 1.42857143;
+vertical-align: top;
+border-top: 1px solid @gray-10;
+font-size:13px;
+}
+
+.table thead tr td,
+.table thead tr th {
+           border-right:1px solid @white;
+           background: @gray-11;  
+           border-bottom: none;  
+           font-weight: normal;  
+           color: @gray-06; 
+           padding:10px 15px;
+}
+
+.table .wrapper {
+    float:left;
+    display: block;
+}
+
+.table td img,
+.table tr img,
+.table th img {
+    float: left;
+    margin-right: 5px;
+}
+/*Row & cell actions - Default*/
+.table tr.row-actions:hover,
+.table td.cell-actions:hover  {
+    background-color: #f5f5f5;
+    text-decoration: none;
+}
+
+.table tr.row-actions .fa,
+.table td.cell-actions .fa {
+    visibility: hidden;
+    color: @gray-05;
+    margin-right: 10px;
+    text-decoration: none;
+}
+
+.table td.cell-actions .fa {
+    margin-left: 10px;
+}
+
+.table tr.row-actions:hover .fa,
+.table td.cell-actions:hover .fa {
+    visibility: visible;
+    text-decoration: none;
+    color:@gray-04;
+}
+
+.table tr.row-actions a:hover .fa:hover,
+.table td.cell-actions a:hover .fa:hover {
+    color: @gray-02;
+}
+
+/*Row actions - blue*/
+.table tr.row-actions.blue:hover {
+    background-color: @default-blue;
+    color: @white;
+}
+
+.table tr.row-actions.blue:hover a {
+    color: @white;
+}
+
+.table tr.row-actions.blue .fa {
+    visibility: hidden;
+    color: @white;
+    margin-right: 10px;
+    text-decoration: none;
+}
+
+.table tr.row-actions.blue:hover .fa {
+    visibility: visible;
+    text-decoration: none;
+    color:@white;
+}
+
+.table tr.row-actions.blue a:hover .fa:hover {
+    color: @blue-11;
+}
+
+/*Row actions - green*/
+.table tr.row-actions.green:hover {
+    background-color: @default-green;
+    color: @white;
+}
+
+.table tr.row-actions.green:hover a {
+    color: @white;
+}
+
+.table tr.row-actions.green .fa {
+    visibility: hidden;
+    color: @white;
+    margin-right: 10px;
+    text-decoration: none;
+}
+
+.table tr.row-actions.green:hover .fa {
+    visibility: visible;
+    text-decoration: none;
+    color:@white;
+}
+
+.table tr.row-actions.green a:hover .fa:hover {
+    color: @green-highlight;
+}
+
+/*Row actions - dark navy*/
+.table tr.row-actions.dark-navy:hover {
+    background-color: @default-navy;
+    color: @white;
+}
+
+.table tr.row-actions.dark-navy:hover a {
+    color: @white;
+}
+
+.table tr.row-actions.dark-navy .fa {
+    visibility: hidden;
+    color: @white;
+    margin-right: 10px;
+    text-decoration: none;
+}
+
+.table tr.row-actions.dark-navy:hover .fa {
+    visibility: visible;
+    text-decoration: none;
+    color:@white;
+}
+
+.table tr.row-actions.dark-navy a:hover .fa:hover {
+    color: @gray-10;
+}
+
+/*Condensed table style*/
+.table-condensed thead tr th,
+.table-condensed tbody tr th,
+.table-condensed tfoot tr th,
+.table-condensed thead tr td,
+.table-condensed tbody tr td,
+.table-condensed tfoot tr td {
+    padding: 7px 15px;
+}
+
+/*Striped table style*/
+.table-striped tbody tr:nth-child(odd) td,
+.table-striped tbody tr:nth-child(odd) > th {
+    background-color: #f9f9f9;
+}
+
+/*Table hover*/
+.table-hover tbody tr:hover > td,
+.table-hover tbody tr:hover > th {
+  background-color: #f5f5f5;
+}
+
+/*Table rows highlights*/
+
+.table thead tr td.success,
+.table tbody tr td.success,
+.table tfoot tr td.success,
+.table thead tr th.success,
+.table tbody tr th.success,
+.table tfoot tr th.success,
+.table thead tr.success td,
+.table tbody tr.success td,
+.table tfoot tr.success td,
+.table thead tr.success th,
+.table tbody tr.success th,
+.table tfoot tr.success th {
+  background-color: @green-highlight;
+
+}
+.table-hover tbody tr td.success:hover,
+.table-hover tbody tr th.success:hover,
+.table-hover tbody tr.success:hover td,
+.table-hover tbody tr:hover .success,
+.table-hover tbody tr.success:hover th {
+  background-color: darken(@green-highlight, 5%);
+}
+
+.table thead tr td.warning,
+.table tbody tr td.warning,
+.table tfoot tr td.warning,
+.table thead tr th.warning,
+.table tbody tr th.warning,
+.table tfoot tr th.warning,
+.table thead tr.warning td,
+.table tbody tr.warning td,
+.table tfoot tr.warning td,
+.table thead tr.warning th,
+.table tbody tr.warning th,
+.table tfoot tr.warning th {
+  background-color: @orange-highlight;
+}
+.table-hover tbody tr td.warning:hover,
+.table-hover tbody tr th.warning:hover,
+.table-hover tbody tr.warning:hover td,
+.table-hover tbody tr:hover .warning,
+.table-hover tbody tr.warning:hover th {
+  background-color: darken(@orange-highlight, 5%);
+}
+
+.table thead tr td.danger,
+.table tbody tr td.danger,
+.table tfoot tr td.danger,
+.table thead tr th.danger,
+.table tbody tr th.danger,
+.table tfoot tr th.danger,
+.table thead tr.danger td,
+.table tbody tr.danger td,
+.table tfoot tr.danger td,
+.table thead tr.danger th,
+.table tbody tr.danger th,
+.table tfoot tr.danger th,
+.table thead tr td.error,
+.table tbody tr td.error,
+.table tfoot tr td.error,
+.table thead tr th.error,
+.table tbody tr th.error,
+.table tfoot tr th.error,
+.table thead tr.error td,
+.table tbody tr.error td,
+.table tfoot tr.error td,
+.table thead tr.error th,
+.table tbody tr.error th,
+.table tfoot tr.error th {
+  background-color: @red-highlight;
+}
+.table-hover tbody tr td.danger:hover,
+.table-hover tbody tr th.danger:hover,
+.table-hover tbody tr.danger:hover td,
+.table-hover tbody tr:hover .danger,
+.table-hover tbody tr.danger:hover th,
+.table-hover tbody tr td.error:hover,
+.table-hover tbody tr th.error:hover,
+.table-hover tbody tr.error:hover td,
+.table-hover tbody tr.error .danger,
+.table-hover tbody tr.error:hover th  {
+  background-color: darken(@red-highlight, 3%);
+}
+
+/*Table rows statuses*/
+
+.table thead tr.status-success,
+.table tbody tr.status-success,
+.table tfoot tr.status-success {
+  border-left:2px solid @default-green;
+}
+
+.table thead tr.status-warning,
+.table tbody tr.status-warning,
+.table tfoot tr.status-warning {
+  border-left:2px solid @default-orange;
+}
+
+.table thead tr.status-error,
+.table tbody tr.status-error,
+.table tfoot tr.status-error {
+  border-left:2px solid @default-red;
+}
+
+.table thead tr.status-info,
+.table tbody tr.status-info,
+.table tfoot tr.status-info {
+  border-left:2px solid @default-blue;
+}
+
+.table thead tr.status-muted,
+.table tbody tr.status-muted,
+.table tfoot tr.status-muted {
+  border-left:2px solid @default-gray;
+  color: @default-gray;
+}
+
+
+/*Sorting*/
+
+.table thead tr th.sortable,
+.table thead tr th.sorted,
+.table thead tr td.sortable,
+.table thead tr td.sorted {
+           cursor: pointer;
+       }
+.table thead tr th.sortable:hover,
+.table thead tr th.sorted:hover,
+.table thead tr td.sortable:hover,
+.table thead tr td.sorted:hover {
+           background: darken(@gray-11, 2%);
+       }
+
+
+.table tr th.sortable .fa,
+.table tr td.sortable .fa {
+    visibility: hidden;
+    color: @gray-06;
+    margin-right: 10px;
+    text-decoration: none;
+}
+
+.table tr th.sortable:hover .fa,
+.table tr td.sortable:hover .fa {
+    visibility: visible;
+    text-decoration: none;
+    color:@gray-06;
+}
+
+.table tr th.sortable:hover .fa:hover,
+.table tr th.sorted:hover .fa:hover,
+.table tr td.sortable:hover .fa:hover,
+.table tr td.sorted:hover .fa:hover {
+    visibility: visible;
+    text-decoration: none;
+    color:@gray-02;
+}
+
+.table tr th.sorted .fa,
+.table tr td.sorted .fa {
+    visibility: visible;
+    text-decoration: none;
+    color:@gray-06;
+}
+
+/*Table toolbar*/
+
+.toolbar {
+    padding-top:12px;
+    padding-bottom:12px;
+    border-top: @default-border;
+}
+
+/*Editible table*/
+
+.table td.editible-cell,
+.table tr.editible-row td {
+    padding:5px;
+    background-color: @orange-highlight; 
+}
+
+.table td.editible-cell input,
+.table tr.editible-row input  {
+           font-size:13px;
+           padding:5px 10px;
+       }
+
+.table td.editible-cell .input-group-btn {
+    
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+
+}
+
+.table td.editible-cell .input-group .input-group-btn .btn {
+           background: @white;
+           border: 1px solid @gray-09;
+       }
+
+.table tr.editible-row .btn-secondary {
+           border:none;
+           font-size:13px;
+           padding:12px 6px;
+           color: @default-blue;
+           text-decoration:underline;
+           margin:0 5px;
+       }
+
+    .table tr.editible-row .btn-secondary:hover {
+        color: darken(@default-blue,10%);
+    }
+    
+/*No data table*/
+
+.table .no-data {
+    height:300px;
+    font-size:21px;
+    text-align:center;
+    vertical-align:middle;
+    color: @default-gray;
+    background: #f9f9f9;
+}
+
+
+
+
+
+
+
+

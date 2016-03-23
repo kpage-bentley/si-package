@@ -1,53 +1,60 @@
 /// <reference path="../../typings/d3/d3.d.ts" />
 
-// http://bl.ocks.org/3687826
-(d3 as any).divgrid = function(config) {
+(d3 as any).divgrid = function (config) {
     var columns = [];
 
-    var dg = function(selection) {
+    var dg = function (selection) {
         if (columns.length == 0)
             columns = d3.keys(selection.data()[0][0]);
 
-        // header
-        selection.selectAll(".header")
+        // Append table
+        selection.selectAll("table")
             .data([true])
-            .enter().append("div")
-            .attr("class", "header")
+            .enter().append("table")
+            .attr("class", "table table-hover")
 
-        var header = selection.select(".header")
-            .selectAll(".cell")
-            .data(columns);
+        // Create Header
+        var table = selection.select("table")
+            .selectAll("thead")
+                .data([true])
+                .enter().append("thead")
+            .selectAll("tr")
+                .data([true])
+                .enter().append("tr")
+            .selectAll("th")
+                .data(columns)
+                .enter().append("th")
+                .text(function (d) {
+                    return d;
+                });
 
-        header.enter().append("div")
-            .attr("class", function(d,i) { return "col-" + i; })
-            .classed("cell", true)
+        // Create tbody
+        selection.select("table")
+            .selectAll("tbody")
+                .data([true])
+                .enter().append("tbody");
 
-        selection.selectAll(".header .cell")
-            .text(function(d) { return d; });
+        // Create rows
+        var tbody = selection.select("tbody");
 
-        header.exit().remove();
-
-        // rows
-        var rows = selection.selectAll(".row")
-            .data(function(d) { return d; })
-
-        rows.enter().append("div")
-            .attr("class", "row")
-
+        var rows = tbody.selectAll("tr")
+            .data(function (d) {
+                return d;
+            });
+        rows.enter().append("tr")
         rows.exit().remove();
 
-        var cells = selection.selectAll(".row").selectAll(".cell")
-            .data(function(d) { return columns.map(function(col){return d[col];}) })
-
-        // cells
-        cells.enter().append("div")
-            .attr("class", function(d,i) { return "col-" + i; })
-            .classed("cell", true)
-
+        var cells = rows.selectAll("td")
+            .data(function (d) {
+                return columns.map(function (col) {
+                    return d[col];
+                });
+            });
+        cells.enter().append("td");
+        cells.text(function (d) {
+            return d;
+        });
         cells.exit().remove();
-
-        selection.selectAll(".cell")
-            .text(function(d) { return d; });
 
         return dg;
     };

@@ -3,32 +3,45 @@ d3.divgrid = function (config) {
     var dg = function (selection) {
         if (columns.length == 0)
             columns = d3.keys(selection.data()[0][0]);
-        selection.selectAll(".header")
+        selection.selectAll("table")
             .data([true])
-            .enter().append("div")
-            .attr("class", "header");
-        var header = selection.select(".header")
-            .selectAll(".cell")
-            .data(columns);
-        header.enter().append("div")
-            .attr("class", function (d, i) { return "col-" + i; })
-            .classed("cell", true);
-        selection.selectAll(".header .cell")
-            .text(function (d) { return d; });
-        header.exit().remove();
-        var rows = selection.selectAll(".row")
-            .data(function (d) { return d; });
-        rows.enter().append("div")
-            .attr("class", "row");
+            .enter().append("table")
+            .attr("class", "table table-hover");
+        var table = selection.select("table")
+            .selectAll("thead")
+            .data([true])
+            .enter().append("thead")
+            .selectAll("tr")
+            .data([true])
+            .enter().append("tr")
+            .selectAll("th")
+            .data(columns)
+            .enter().append("th")
+            .text(function (d) {
+            return d;
+        });
+        selection.select("table")
+            .selectAll("tbody")
+            .data([true])
+            .enter().append("tbody");
+        var tbody = selection.select("tbody");
+        var rows = tbody.selectAll("tr")
+            .data(function (d) {
+            return d;
+        });
+        rows.enter().append("tr");
         rows.exit().remove();
-        var cells = selection.selectAll(".row").selectAll(".cell")
-            .data(function (d) { return columns.map(function (col) { return d[col]; }); });
-        cells.enter().append("div")
-            .attr("class", function (d, i) { return "col-" + i; })
-            .classed("cell", true);
+        var cells = rows.selectAll("td")
+            .data(function (d) {
+            return columns.map(function (col) {
+                return d[col];
+            });
+        });
+        cells.enter().append("td");
+        cells.text(function (d) {
+            return d;
+        });
         cells.exit().remove();
-        selection.selectAll(".cell")
-            .text(function (d) { return d; });
         return dg;
     };
     dg.columns = function (_) {
@@ -59,7 +72,7 @@ var si;
                 element.append(graphDomElement);
                 ParcoordsDirective.that.$compile(graphDomElement)(scope);
                 if (settings.showGrid) {
-                    var gridDomElement = angular.element("<div class='parcoords-grid' align='center'></div>");
+                    var gridDomElement = angular.element("<div class='parcoords-grid'></div>");
                     element.append(gridDomElement);
                     ParcoordsDirective.that.$compile(gridDomElement)(scope);
                 }
@@ -85,7 +98,7 @@ var si;
                             d3.select(gridElement)
                                 .datum(gridData.slice(0, 50))
                                 .call(grid)
-                                .selectAll(".row")
+                                .selectAll("tbody tr")
                                 .on("mouseover", function (d) {
                                 parcoords.highlight([d]);
                             })
