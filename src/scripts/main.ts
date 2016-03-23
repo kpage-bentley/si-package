@@ -36,105 +36,70 @@ module si.package {
 
             var graphElement = element[0].firstElementChild;
 
-            var parcoords = (d3 as any).parcoords()(graphElement);
+            // Keep track of the getData promise
+            var getData = settings.getData();
 
-            // Set color
-            if (settings.color) {
-                parcoords.color(settings.color);
-            }
+            var setupParcoords = () => {
+                (graphElement as HTMLElement).innerHTML = '';
+                var parcoords = (d3 as any).parcoords()(graphElement);
 
-            // Set alpha level of parcoords
-            parcoords.alpha(0.4);
-
-            settings.getData().then(data => {
-
-                parcoords.data(data);
-
-                // Hide the proper axis
-                if (settings.hideAxis) {
-                    parcoords.hideAxis(settings.hideAxis);
+                // Set color
+                if (settings.color) {
+                    parcoords.color(settings.color);
                 }
 
-                // Render
-                parcoords.render();
+                // Set alpha level of parcoords
+                parcoords.alpha(0.4);
 
-                // Enable brushing
-                if (settings.brushingEnabled) {
-                    parcoords.brushMode("1D-axes");
-                }
+                getData.then(data => {
+                    parcoords.data(data);
 
-                // create data table, row hover highlighting
-                if (settings.showGrid) {
-                    var gridElement = graphElement.nextElementSibling;
+                    // Hide the proper axis
+                    if (settings.hideAxis) {
+                        parcoords.hideAxis(settings.hideAxis);
+                    }
 
-                    var grid = (d3 as any).divgrid();
+                    // Render
+                    parcoords.render();
 
-                    var redrawGrid = (gridData) => {
-                        d3.select(gridElement)
-                            .datum(gridData.slice(0, 50))
-                            .call(grid)
-                            .selectAll("tbody tr")
-                            .on("mouseover", (d) => {
-                                parcoords.highlight([d]);
-                            })
-                            .on("mouseout", parcoords.unhighlight);
-                    };
+                    // Enable brushing
+                    if (settings.brushingEnabled) {
+                        parcoords.brushMode("1D-axes");
+                    }
 
-                    redrawGrid(data);
+                    // create data table, row hover highlighting
+                    if (settings.showGrid) {
+                        var gridElement = graphElement.nextElementSibling;
 
-                    parcoords.on("brush", (d) => {
-                        redrawGrid(d);
-                    });
-                }
+                        var grid = (d3 as any).divgrid();
 
-            }); // End of getData scope
+                        var redrawGrid = (gridData) => {
+                            d3.select(gridElement)
+                                .datum(gridData.slice(0, 50))
+                                .call(grid)
+                                .selectAll("tbody tr")
+                                .on("mouseover", (d) => {
+                                    parcoords.highlight([d]);
+                                })
+                                .on("mouseout", parcoords.unhighlight);
+                        };
 
-            /*
-            // Appends blue line
-            var svgWidth = parseInt(d3.select('svg').style("width"));
-            var svgHeight = parseInt(d3.select('svg').style("height"));
-            var siStructure: any = d3.select('svg');
+                        redrawGrid(data);
 
-            siStructure.append("polyline")
-                .attr({
-                    points:[
-                        0.072 * svgWidth,
-                        0.125 * svgHeight,
+                        parcoords.on("brush", (d) => {
+                            redrawGrid(d);
+                        });
+                    }
+                });
+            };
 
-                        0.0709 * svgWidth + 0.14343 * svgWidth,
-                        svgHeight * 0.75,
+            // Setup the parcoords object
+            setupParcoords();
 
-                        0.0709 * svgWidth + 0.143 * svgWidth * 2,
-                        svgHeight * 0.75,
-
-                        0.0709 * svgWidth + 0.143 * svgWidth * 3,
-                        svgHeight * 0.75,
-
-                        0.0709 * svgWidth + 0.143 * svgWidth * 4,
-                        svgHeight * 0.65,
-
-                        0.0709 * svgWidth + 0.143 * svgWidth * 5,
-                        svgHeight * 0.48,
-
-                        0.0709 * svgWidth + 0.143 * svgWidth * 6,
-                        svgHeight * 0.465
-                    ],
-                    stroke:"#4bacdd",
-                    "stroke-width": svgHeight * 0.03,
-                    fill:"none",
-                    "stroke-linecap":"round",
-                    opacity:0.7
-                })
-                .classed("sipoly", true);
-
-            var sipoly: any = $('.sipoly');
-            sipoly.tipsy({
-                gravity: 'e',
-                html: true,
-                title: function() {
-                    return ' <br>Lakeshore Medical Center<br>Moment Frame<br>Gravity members = 4.4psf<br>Lateral System = 2.5psf<br>Steel Weight = 6.9psf<br>Overall Performace = 75%<br>Safety Rating = 7<br>Construction Time = 26 months<br> ';
-                }
-            });*/
+            // Whenever the window is resized, redraw the parcoords with the same settings
+            window.onresize = event => {
+                setupParcoords();
+            };
         }
 
         public static Factory() {
