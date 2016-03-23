@@ -7,6 +7,7 @@ class ParcoordsController {
     constructor(private $scope: any, private $q: angular.IQService) {
 
         $scope.settings = {
+            alpha: 0.5,
             getData: () => {
                 return $q.when([
                     { w: 1, x: 10, y: 14, z: 10 },
@@ -17,7 +18,16 @@ class ParcoordsController {
             hideAxis: ["w"],
             showGrid: true,
             brushingEnabled: true,
-            color: 'blue'
+            color: (d) => {
+                switch (d.y) {
+                    case 14:
+                        return "green";
+                    case 12:
+                        return "yellow"
+                    case 10:
+                        return "red";
+                }
+            }
         }
     }
 }

@@ -49,7 +49,12 @@ module si.package {
                 }
 
                 // Set alpha level of parcoords
-                parcoords.alpha(0.4);
+                if (settings.alpha === undefined) {
+                    parcoords.alpha(0.4);
+                }
+                else {
+                    parcoords.alpha(settings.alpha);
+                }
 
                 getData.then(data => {
                     parcoords.data(data);
