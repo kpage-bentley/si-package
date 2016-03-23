@@ -3,29 +3,43 @@ d3.divgrid = function (config) {
     var dg = function (selection) {
         if (columns.length == 0)
             columns = d3.keys(selection.data()[0][0]);
-        var table = selection.append("table")
+        selection.selectAll("table")
+            .data([true])
+            .enter().append("table")
             .attr("class", "table");
-        table.append("thead").append("tr")
+        selection.select("table")
+            .selectAll("thead")
+            .data([true])
+            .enter().append("thead")
+            .selectAll("tr")
+            .data([true])
+            .enter().append("tr")
             .selectAll("th")
-            .data(columns).enter()
-            .append("th")
+            .data(columns)
+            .enter().append("th")
             .text(function (d) {
             return d;
         });
-        table.append("tbody")
-            .selectAll("tr")
+        selection.select("table")
+            .selectAll("tbody")
+            .data([true])
+            .enter().append("tbody");
+        var tbody = selection.select("tbody");
+        var rows = tbody.selectAll("tr")
             .data(function (d) {
             return d;
-        }).enter()
-            .append("tr")
-            .selectAll("td")
+        });
+        rows.enter().append("tr");
+        rows.exit().remove();
+        var cells = rows.selectAll("td")
             .data(function (d) {
             return columns.map(function (col) {
                 return d[col];
             });
-        }).enter()
-            .append("td")
-            .text(function (d) {
+        });
+        cells.enter().append("td");
+        cells.exit().remove();
+        tbody.selectAll("td").text(function (d) {
             return d;
         });
         return dg;

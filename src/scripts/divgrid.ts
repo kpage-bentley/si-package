@@ -8,35 +8,56 @@
             columns = d3.keys(selection.data()[0][0]);
 
         // Append table
-        var table = selection.append("table")
+        selection.selectAll("table")
+            .data([true])
+            .enter().append("table")
             .attr("class", "table");
 
         // Create Header
-        table.append("thead").append("tr")
+        selection.select("table")
+            .selectAll("thead")
+                .data([true])
+                .enter().append("thead")
+            .selectAll("tr")
+                .data([true])
+                .enter().append("tr")
             .selectAll("th")
-            .data(columns).enter()
-            .append("th")
-            .text(function (d) {
+                .data(columns)
+                .enter().append("th")
+                .text(function (d) {
+                    return d;
+                });
+
+        // Create tbody
+        selection.select("table")
+            .selectAll("tbody")
+                .data([true])
+                .enter().append("tbody");
+
+        // Create rows
+        var tbody = selection.select("tbody");
+
+        var rows = tbody.selectAll("tr")
+            .data(function (d) {
                 return d;
+            });
+        rows.enter().append("tr");
+        rows.exit().remove();
+
+        var cells = rows.selectAll("td")
+            .data(function (d) {
+                return columns.map(function (col) {
+                    return d[col];
+                });
             });
 
-        // Create Rows
-        table.append("tbody")
-            .selectAll("tr")
-            .data(function (d) {
-                return d;
-            }).enter()
-            .append("tr")
-            .selectAll("td")
-            .data(function (d) {
-                return columns.map(function (col){
-                    return d[col];
-                })
-            }).enter()
-            .append("td")
-            .text(function (d) {
-                return d;
-            });
+        cells.enter().append("td");
+
+        cells.exit().remove();
+
+        tbody.selectAll("td").text(function (d) {
+            return d;
+        });
 
         return dg;
     };
