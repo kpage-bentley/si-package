@@ -9,5 +9,5 @@ demo/**/*.js
 *.tmp.txt
 
 dist/*
-!dist/main.min.css
-!dist/main.min.js
+!dist/si-package.css
+!dist/si-package.js

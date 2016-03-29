@@ -43,13 +43,42 @@ module si.package {
                 (graphElement as HTMLElement).innerHTML = '';
                 var parcoords = (d3 as any).parcoords()(graphElement);
 
-                // Set color
-                if (settings.color) {
+                /// Set color
+                if (settings.color.type === "RANGE") {
+
+                    var domain = [settings.color.lower.value, settings.color.upper.value];
+                    var range = [settings.color.lower.color, settings.color.upper.color];
+
+                    if (range[0] === undefined)
+                        range[0] = "#de1c22";
+                    if (range[1] === undefined)
+                        range[1] = "#acdd4b";
+
+                    var colorRange = (d3 as any).scale.linear()
+                        .domain(domain)
+                        .range(range)
+                        .interpolate(d3.interpolateLab);
+
+                    var colorFunction = (d) => {
+                        var index = d[settings.color.axis];
+
+                        var color = colorRange(index);
+                        return color;
+                    };
+                    parcoords.color(colorFunction);
+                }
+                // Function passed as color
+                else if (typeof settings.color === "function") {
                     parcoords.color(settings.color);
                 }
 
                 // Set alpha level of parcoords
-                parcoords.alpha(0.4);
+                if (settings.alpha === undefined) {
+                    parcoords.alpha(0.4);
+                }
+                else {
+                    parcoords.alpha(settings.alpha);
+                }
 
                 getData.then(data => {
                     parcoords.data(data);
@@ -89,6 +118,16 @@ module si.package {
                         parcoords.on("brush", (d) => {
                             redrawGrid(d);
                         });
+                    }
+
+                    // Set reorderable
+                    if (settings.reorderable === true) {
+                        parcoords.reorderable();
+                    }
+
+                    // Flip axis
+                    if (settings.flipAxis && settings.flipAxis.length) {
+                        parcoords.flipAxis(settings.flipAxis);
                     }
                 });
             };
