@@ -16,7 +16,7 @@ module.exports = function (grunt) {
         uglify: {
             target: {
                 files: {
-                    "dist/main.min.js": ["dist/main.js"],
+                    "dist/si-package.js": ["dist/main.src.js"],
                 }
             }
         },
@@ -24,7 +24,7 @@ module.exports = function (grunt) {
         cssmin: {
             target: {
                 files: {
-                    "dist/main.min.css": ["dist/main.css"]
+                    "dist/si-package.css": ["dist/main.src.css"]
                 }
             }
         },
@@ -50,8 +50,8 @@ module.exports = function (grunt) {
         less: {
             default: {
                 files: {
-                    // compilation.css  :   source.less
-                    "dist/main.css"     :  "src/styles/main.less"
+                    // compilation.css      :   source.less
+                    "dist/main.src.css"     :  "src/styles/main.less"
                 }
             }
         },
@@ -63,7 +63,7 @@ module.exports = function (grunt) {
             },
             default: {
                 src: ["src/scripts/*.ts"],
-                out: "./dist/main.js"
+                out: "./dist/main.src.js"
             },
             demo: {
                 src: ["demo/**/*.ts"]
