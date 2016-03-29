@@ -32,7 +32,7 @@ module.exports = function (grunt) {
         // Used to watch for when TypeScript and Less files are modified
         watch: {
             less: {
-                // if any .less file changes in directory "assets/css/" run the "less"-task.
+                // if any .less file changes in directory "src/styles/" run the "less"-task.
                 files: "src/styles/*.less",
                 tasks: ["less", "cssmin"]
             },
