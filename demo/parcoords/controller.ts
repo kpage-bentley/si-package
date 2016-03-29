@@ -9,11 +9,16 @@ class ParcoordsController {
         $scope.settings = {
             alpha: 1.0,
             getData: () => {
-                return $q.when([
-                    { w: 1, x: 10, y: 14, z: 10 },
-                    { w: 2, x: 12, y: 12, z: 12 },
-                    { w: 3, x: 14, y: 10, z: 14 }
-                ]);
+                var data = [];
+                for (var i = 0; i < 250; ++i) {
+                    data.push({
+                        w: Math.random() * 100,
+                        x: Math.random() * 100,
+                        y: Math.random() * 100,
+                        z: Math.random() * 100
+                    });
+                }
+                return $q.when(data);
             },
             hideAxis: ["w"],
             // Not supported in parcoords yet!
@@ -25,11 +30,11 @@ class ParcoordsController {
                 axis: "y",
                 upper: {
                     color: "#00FF00",
-                    value: 14
+                    value: 100
                 },
                 lower: {
                     color: "#FF0000",
-                    value: 10
+                    value: 0
                 }
             },
             reorderable: true
