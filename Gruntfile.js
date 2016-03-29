@@ -38,7 +38,7 @@ module.exports = function (grunt) {
             },
             ts: {
                 // if any .ts files change, run the "ts"-task.
-                files: ["src/scripts/*.ts", "demo/**/*.ts"],
+                files: ["src/scripts/*.ts"],
                 tasks: ["ts", "uglify"],
                 options: {
                     spawn: false
@@ -64,9 +64,6 @@ module.exports = function (grunt) {
             default: {
                 src: ["src/scripts/*.ts"],
                 out: "./dist/main.src.js"
-            },
-            demo: {
-                src: ["demo/**/*.ts"]
             }
         },
 
