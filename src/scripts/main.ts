@@ -104,7 +104,7 @@ module si.package {
 
                         var redrawGrid = (gridData) => {
                             d3.select(gridElement)
-                                .datum(gridData.slice(0, 50))
+                                .datum(gridData)
                                 .call(grid)
                                 .selectAll("tbody tr")
                                 .on("mouseover", (d) => {
