@@ -9,6 +9,12 @@ module si.package {
         settings: any
     }
 
+    interface rgb {
+        r: number;
+        g: number;
+        b: number;
+    }
+
     class ParcoordsDirective {
         static that: ParcoordsDirective;
 
@@ -21,7 +27,7 @@ module si.package {
             ParcoordsDirective.that = this;
         }
 
-        public static hexToRgb(hex: string): any {
+        public static hexToRgb(hex: string): rgb {
             var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
             return result ? {
                 r: parseInt(result[1], 16),
