@@ -21,8 +21,6 @@
 
         var createRows = (sortOnColumn?) => {
 
-            var sorted = data;
-
             if (typeof sortOnColumn !== "undefined") {
                 data.sort((a, b) => {
                     return a[sortOnColumn] - b[sortOnColumn]
@@ -33,7 +31,7 @@
 
             // Create rows
             var rows = tbody.selectAll("tr")
-                .data(sorted.slice(0, GRID_ROWS));
+                .data(data.slice(0, GRID_ROWS));
             rows.enter().append("tr");
             rows.exit().remove();
 

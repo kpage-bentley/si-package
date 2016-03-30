@@ -21,6 +21,15 @@ module si.package {
             ParcoordsDirective.that = this;
         }
 
+        public static hexToRgb(hex: string): any {
+            var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        }
+
         public link(scope: ParCoordScope, element: angular.IAugmentedJQuery, attrs: any): void {
             var settings = scope.settings;
 
@@ -46,24 +55,60 @@ module si.package {
                 /// Set color
                 if (settings.color.type === "RANGE") {
 
-                    var domain = [settings.color.lower.value, settings.color.upper.value];
-                    var range = [settings.color.lower.color, settings.color.upper.color];
+                    var lower = {
+                        color: settings.color.lower.color,
+                        alpha: 1.0
+                    };
+                    var upper = {
+                        color: settings.color.upper.color,
+                        alpha: 1.0
+                    };
 
-                    if (range[0] === undefined)
-                        range[0] = "#de1c22";
-                    if (range[1] === undefined)
-                        range[1] = "#acdd4b";
+                    // Set default colors
+                    if (lower.color === undefined)
+                        lower.color = "#de1c22";
+                    if (upper.color === undefined)
+                        upper.color = "#acdd4b";
+
+                    // Lower includes the alpha channel
+                    if ((lower.color.length - 1) % 4 === 0) {
+                        var alphaLength = (lower.color.length - 1) / 4;
+
+                        var color = lower.color.slice(0, -alphaLength);
+                        var alphaString = lower.color.substr(lower.color.length - alphaLength);
+                        var alpha = parseInt(alphaString, 16) / 255;
+
+                        lower.color = color;
+                        lower.alpha = alpha;
+                    }
+
+                    // Upper includes the alpha channel
+                    if ((upper.color.length - 1) % 4 === 0) {
+                        var alphaLength = (upper.color.length - 1) / 4;
+
+                        var color = upper.color.slice(0, -alphaLength);
+                        var alphaString = upper.color.substr(upper.color.length - alphaLength);
+                        var alpha = parseInt(alphaString, 16) / 255;
+
+                        upper.color = color;
+                        upper.alpha = alpha;
+                    }
+
+                    var domain = [settings.color.lower.value, settings.color.upper.value];
+                    var range = [lower, upper];
 
                     var colorRange = (d3 as any).scale.linear()
                         .domain(domain)
-                        .range(range)
-                        .interpolate(d3.interpolateLab);
+                        .range(range);
 
                     var colorFunction = (d) => {
                         var index = d[settings.color.axis];
 
-                        var color = colorRange(index);
-                        return color;
+                        var colorValue = colorRange(index);
+
+                        var rgb = ParcoordsDirective.hexToRgb(colorValue.color);
+                        var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + colorValue.alpha + ")";
+                        return rgba;
                     };
                     parcoords.color(colorFunction);
                 }

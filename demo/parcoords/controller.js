@@ -25,11 +25,11 @@ myApp.controller('ParcoordsController', ['$scope', '$q', function ($scope, $q) {
             type: "RANGE",
             axis: "y",
             upper: {
-                color: "#bc1032",
+                color: "#bc103211",
                 value: 100
             },
             lower: {
-                color: "#10bc44",
+                color: "#10bc44FF",
                 value: 0
             }
         },
