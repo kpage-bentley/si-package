@@ -6,11 +6,16 @@
 
     var columns = [];
 
-    var dg = function (selection) {
+    // Refactor this
+    var data;
+    var createRows;
+    var sort;
 
-        var data = selection.data()[0];
+    var dg: any = function (selection) {
 
-        var sort = {
+        data = selection.data()[0];
+
+        sort = {
             axis: null,
             up: false
         };
@@ -24,7 +29,7 @@
             .enter().append("table")
             .attr("class", "table table-hover")
 
-        var createRows = (sortOnColumn?) => {
+        createRows = (sortOnColumn?) => {
 
             // Create copy of data
             var sorted = data.slice();
@@ -118,11 +123,18 @@
         return dg;
     };
 
-    (dg as any).columns = function(_) {
+    dg.columns = function(_) {
         if (!arguments.length)
             return columns;
         columns = _;
         return this;
+    };
+
+    dg.brush = function(elements) {
+        sort.axis = null;
+        sort.up = false;
+        data = elements;
+        createRows();
     };
 
     return dg;

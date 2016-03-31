@@ -153,21 +153,18 @@ module si.package {
 
                         var grid = (d3 as any).divgrid();
 
-                        var redrawGrid = (gridData) => {
-                            d3.select(gridElement)
-                                .datum(gridData)
-                                .call(grid)
-                                .selectAll("tbody tr")
-                                .on("mouseover", (d) => {
-                                    parcoords.highlight([d]);
-                                })
-                                .on("mouseout", parcoords.unhighlight);
-                        };
-
-                        redrawGrid(data);
+                        // Draws the grid
+                        d3.select(gridElement)
+                            .datum(data)
+                            .call(grid)
+                            .selectAll("tbody tr")
+                            .on("mouseover", (d) => {
+                                parcoords.highlight([d]);
+                            })
+                            .on("mouseout", parcoords.unhighlight);
 
                         parcoords.on("brush", (d) => {
-                            redrawGrid(d);
+                            grid.brush(d);
                         });
                     }
 
