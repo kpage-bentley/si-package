@@ -6,17 +6,16 @@
 
     var columns = [];
 
-    // Refactor this
-    var data;
+    var selection;
+
     var sort = {
         axis: null,
         up: false
     };
-    var selection;
 
-    function createRows(sortOnColumn?) {
+    function createRows(elements, sortOnColumn?) {
         // Create copy of data
-        var sorted = data.slice();
+        var sorted = elements.slice();
 
         if (typeof sortOnColumn !== "undefined") {
             // Set the sort object
@@ -73,15 +72,24 @@
                         return sort.up ? "icon-chevron_down" : "icon-chevron_up";
                     }
                 });
+
+        // Add click event to headers
+        selection.select("table")
+            .selectAll("thead")
+            .selectAll("tr")
+            .selectAll("th")
+            .on("click", d => {
+                createRows(elements, d);
+            });
     }
 
     var dg: any = function (_selection) {
         selection = _selection;
 
-        data = selection.data()[0];
+        var data = selection.data()[0];
 
         if (columns.length == 0)
-            columns = d3.keys(selection.data()[0][0]);
+            columns = d3.keys(data[0]);
 
         // Append table
         selection.selectAll("table")
@@ -103,9 +111,6 @@
                 .text(function (d) {
                     return d;
                 })
-                .on("click", d => {
-                    createRows(d);
-                })
             .selectAll("i")
                 .data([true])
                 .enter().append("i");
@@ -116,7 +121,7 @@
                 .data([true])
                 .enter().append("tbody");
 
-        createRows();
+        createRows(data);
 
         return dg;
     };
@@ -130,8 +135,7 @@
 
     dg.brush = function(elements) {
         sort.axis = null;
-        data = elements;
-        createRows();
+        createRows(elements);
     };
 
     return dg;
