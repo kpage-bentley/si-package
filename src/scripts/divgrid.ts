@@ -1,6 +1,7 @@
 /// <reference path="../../typings/d3/d3.d.ts" />
 
-(d3 as any).divgrid = function (config) {
+// Keep a reference to the parcoords so you can modify it
+(d3 as any).divgrid = function (parcoords) {
     // Total number of rows to display
     const GRID_ROWS = 50;
 
@@ -51,6 +52,13 @@
             .data(sorted.slice(0, GRID_ROWS));
         rows.enter().append("tr");
         rows.exit().remove();
+
+        // Give mouseover / mouseout to the rows
+        selection.selectAll("tbody tr")
+        .on("mouseover", (d) => {
+            parcoords.highlight([d]);
+        })
+        .on("mouseout", parcoords.unhighlight);
 
         // Create cells for each row
         var cells = rows.selectAll("td")

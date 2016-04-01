@@ -151,17 +151,12 @@ module si.package {
                     if (settings.showGrid) {
                         var gridElement = graphElement.nextElementSibling;
 
-                        var grid = (d3 as any).divgrid();
+                        var grid = (d3 as any).divgrid(parcoords);
 
                         // Draws the grid
                         d3.select(gridElement)
                             .datum(data)
                             .call(grid)
-                            .selectAll("tbody tr")
-                            .on("mouseover", (d) => {
-                                parcoords.highlight([d]);
-                            })
-                            .on("mouseout", parcoords.unhighlight);
 
                         parcoords.on("brush", (d) => {
                             grid.brush(d);
