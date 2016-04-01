@@ -151,23 +151,15 @@ module si.package {
                     if (settings.showGrid) {
                         var gridElement = graphElement.nextElementSibling;
 
-                        var grid = (d3 as any).divgrid();
+                        var grid = (d3 as any).divgrid(parcoords);
 
-                        var redrawGrid = (gridData) => {
-                            d3.select(gridElement)
-                                .datum(gridData)
-                                .call(grid)
-                                .selectAll("tbody tr")
-                                .on("mouseover", (d) => {
-                                    parcoords.highlight([d]);
-                                })
-                                .on("mouseout", parcoords.unhighlight);
-                        };
-
-                        redrawGrid(data);
+                        // Draws the grid
+                        d3.select(gridElement)
+                            .datum(data)
+                            .call(grid)
 
                         parcoords.on("brush", (d) => {
-                            redrawGrid(d);
+                            grid.brush(d);
                         });
                     }
 
