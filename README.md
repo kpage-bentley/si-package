@@ -45,7 +45,8 @@ Or you can pass an object of the type:
     }
 }
 ```
-
+#Demo
+http://kpage-bentley.github.io/si-package/
 
 [//]: # (TODO:)
 [//]: # (Line thickness)
