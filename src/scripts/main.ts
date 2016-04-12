@@ -150,13 +150,7 @@ module si.package {
                     // create data table, row hover highlighting
                     if (settings.showGrid) {
                         var gridElement = graphElement.nextElementSibling;
-
-                        var grid = (d3 as any).divgrid(parcoords);
-
-                        // Draws the grid
-                        d3.select(gridElement)
-                            .datum(data)
-                            .call(grid)
+                        var grid = createParcoordsGrid(parcoords, gridElement, data);
 
                         parcoords.on("brush", (d) => {
                             grid.brush(d);

@@ -1,13 +1,9 @@
 /// <reference path="../../typings/d3/d3.d.ts" />
 
-// Keep a reference to the parcoords so you can modify it
-(d3 as any).divgrid = function (parcoords) {
+var createParcoordsGrid = function (parcoords, gridElement, data) {
+
     // Total number of rows to display
     const GRID_ROWS = 50;
-
-    var columns = [];
-
-    var selection;
 
     var sort = {
         axis: null,
@@ -15,62 +11,8 @@
     };
 
     function createRows(elements, sortOnColumn?) {
-        // Create copy of data
-        var sorted = elements.slice();
-
-        if (typeof sortOnColumn !== "undefined") {
-            // Set the sort object
-            if (sort.axis === sortOnColumn) {
-                if (sort.up) {
-                    sort.axis = null;
-                    sort.up = false;
-                }
-                else {
-                    sort.up = true;
-                }
-            }
-            else {
-                sort.axis = sortOnColumn;
-                sort.up = false;
-            }
-
-            if (sort.axis != null) {
-                sorted.sort((a, b) => {
-                    return a[sortOnColumn] - b[sortOnColumn]
-                });
-
-                if (sort.up) {
-                    sorted.reverse();
-                }
-            }
-        }
-
-        var tbody = selection.select("tbody");
-
-        // Create rows
-        var rows = tbody.selectAll("tr")
-            .data(sorted.slice(0, GRID_ROWS));
-        rows.enter().append("tr");
-        rows.exit().remove();
-
-        // Give mouseover / mouseout to the rows
-        selection.selectAll("tbody tr")
-        .on("mouseover", (d) => {
-            parcoords.highlight([d]);
-        })
-        .on("mouseout", parcoords.unhighlight);
-
-        // Create cells for each row
-        var cells = rows.selectAll("td")
-            .data(d => columns.map(col => d[col]));
-        cells.enter().append("td");
-        cells.text(function (d) {
-            return d;
-        });
-        cells.exit().remove();
-
         // Give i elements proper classes in header
-        selection.select("table")
+        /*selection.select("table")
             .selectAll("tr")
             .selectAll("th")
             .selectAll("i")
@@ -79,67 +21,71 @@
                     if (x === sort.axis) {
                         return sort.up ? "icon-chevron_down" : "icon-chevron_up";
                     }
-                });
-
-        // Add click event to headers
-        selection.select("table")
-            .selectAll("thead")
-            .selectAll("tr")
-            .selectAll("th")
-            .on("click", d => {
-                createRows(elements, d);
-            });
+                });*/
     }
 
-    var dg: any = function (_selection) {
-        selection = _selection;
+    function repeatElement(dataArray: any[], elementConstructor, limit?: number): any[] {
+        limit = typeof limit === 'undefined' ? dataArray.length : limit;
 
-        var data = selection.data()[0];
+        var result = [];
+        for (var i = 0; i < Math.min(limit, dataArray.length); ++i) {
+            var data = dataArray[i];
+            result.push(elementConstructor(data));
+        }
+        return result;
+    }
 
-        if (columns.length == 0)
-            columns = d3.keys(data[0]);
+    var dg: any = function () {
 
-        // Append table
-        selection.selectAll("table")
-            .data([true])
-            .enter().append("table")
-            .attr("class", "table table-hover")
+        var columns = d3.keys(data[0]);
 
-        // Create Header
-        var table = selection.select("table")
-            .selectAll("thead")
-                .data([true])
-                .enter().append("thead")
-            .selectAll("tr")
-                .data([true])
-                .enter().append("tr")
-            .selectAll("th")
-                .data(columns)
-                .enter().append("th")
-                .text(function (d) {
-                    return d;
-                })
-            .selectAll("i")
-                .data([true])
-                .enter().append("i");
+        // Create table skeleton
+        gridElement.innerHTML = "<table class='table table-hover'>" +
+                                    "<thead><tr></tr></thead>" +
+                                    "<tbody></tbody>" +
+                                "</table>";
 
-        // Create tbody
-        selection.select("table")
-            .selectAll("tbody")
-                .data([true])
-                .enter().append("tbody");
+        // Populate table header
+        var theadRow = gridElement.getElementsByTagName("thead")[0].getElementsByTagName("tr")[0];
+        var headColumns = repeatElement(columns, col => {
+            var th = document.createElement("th");
+            th.innerHTML = col + "<i></i>";
+            return th;
+        });
+        for (var i = 0; i < headColumns.length; ++i) {
+            theadRow.appendChild(headColumns[i]);
+        }
 
-        createRows(data);
+        // Populate table body
+        var tbody = gridElement.getElementsByTagName("tbody")[0];
+        var tableRows = repeatElement(data, d => {
+            var entries = columns.map(col => d[col]);
+            var tr = document.createElement("tr");
+
+            var rowColumns = repeatElement(entries, col => {
+                var td = document.createElement("td");
+                td.innerHTML = col;
+                return td;
+            });
+            for (var i = 0; i < rowColumns.length; ++i) {
+                tr.appendChild(rowColumns[i]);
+            }
+
+            tr.addEventListener('mouseover', (e) => {
+                parcoords.highlight([d]);
+            });
+            tr.addEventListener('mouseout', parcoords.unhighlight);
+
+            return tr;
+        }, GRID_ROWS)
+        for (var i = 0; i < tableRows.length; ++i) {
+            tbody.appendChild(tableRows[i]);
+        }
 
         return dg;
     };
 
-    dg.columns = function(_) {
-        if (!arguments.length)
-            return columns;
-        columns = _;
-        return this;
-    };
+    dg();
 
     dg.brush = function(elements) {
         sort.axis = null;
