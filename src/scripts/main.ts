@@ -150,7 +150,7 @@ module si.package {
                     // create data table, row hover highlighting
                     if (settings.showGrid) {
                         var gridElement = graphElement.nextElementSibling;
-                        var grid = createParcoordsGrid(parcoords, gridElement, data);
+                        var grid = createParcoordsGrid(parcoords, gridElement, data, settings.customGridColumns);
 
                         parcoords.on("brush", (d) => {
                             grid.brush(d);

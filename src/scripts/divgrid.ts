@@ -1,12 +1,16 @@
 /// <reference path="../../typings/d3/d3.d.ts" />
 
-var createParcoordsGrid = function (parcoords, gridElement, data) {
+var createParcoordsGrid = function (parcoords, gridElement, data, customGridColumns) {
 
     // Preserve a copy of the data as it was initially
     var originalData = data.slice();
 
+    if (typeof customGridColumns === 'undefined') {
+        customGridColumns = [];
+    }
+
     var config = {
-        checkbox: true
+        checkbox: false
     };
 
     // Total number of rows to display
@@ -79,6 +83,11 @@ var createParcoordsGrid = function (parcoords, gridElement, data) {
             for (var i = 0; i < rowColumns.length; ++i) {
                 tr.appendChild(rowColumns[i]);
             }
+            for (var i = 0; i < customGridColumns.length; ++i) {
+                var td = document.createElement("td");
+                td.appendChild(customGridColumns[i].constructor(d));
+                tr.appendChild(td);
+            }
 
             tr.addEventListener('mouseover', (e) => {
                 parcoords.highlight([d]);
@@ -92,15 +101,8 @@ var createParcoordsGrid = function (parcoords, gridElement, data) {
         }
     }
 
-    function createTable() {
-
+    function createHeader() {
         var columns = d3.keys(data[0]);
-
-        // Create table skeleton
-        gridElement.innerHTML = "<table class='table table-hover'>" +
-                                    "<thead><tr></tr></thead>" +
-                                    "<tbody></tbody>" +
-                                "</table>";
 
         // Populate table header
         var theadRow = gridElement.getElementsByTagName("thead")[0].getElementsByTagName("tr")[0];
@@ -142,7 +144,22 @@ var createParcoordsGrid = function (parcoords, gridElement, data) {
         for (var i = 0; i < headColumns.length; ++i) {
             theadRow.appendChild(headColumns[i]);
         }
+        for (var i = 0; i < customGridColumns.length; ++i) {
+            var custom = customGridColumns[i];
+            var th = document.createElement("th");
+            th.innerHTML = custom.name;
+            theadRow.appendChild(th);
+        }
+    }
 
+    function createTable() {
+
+        // Create table skeleton
+        gridElement.innerHTML = "<table class='table table-hover'>" +
+                                    "<thead><tr></tr></thead>" +
+                                    "<tbody></tbody>" +
+                                "</table>";
+        createHeader();
         createRows();
     }
 
