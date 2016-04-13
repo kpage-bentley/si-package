@@ -2,6 +2,10 @@
 
 var createParcoordsGrid = function (parcoords, gridElement, data) {
 
+    var config = {
+        checkbox: true
+    };
+
     // Total number of rows to display
     const GRID_ROWS = 50;
 
@@ -25,6 +29,14 @@ var createParcoordsGrid = function (parcoords, gridElement, data) {
         var tableRows = repeatElement(sorted, d => {
             var entries = columns.map(col => d[col]);
             var tr = document.createElement("tr");
+
+            // Add checkbox to header
+            if (config.checkbox) {
+                var checkbox = document.createElement("th");
+                checkbox.width = '20px';
+                checkbox.innerHTML = "<input type='checkbox' checked='checked'></input>";
+                tr.appendChild(checkbox);
+            }
 
             var rowColumns = repeatElement(entries, col => {
                 var td = document.createElement("td");
@@ -59,6 +71,15 @@ var createParcoordsGrid = function (parcoords, gridElement, data) {
 
         // Populate table header
         var theadRow = gridElement.getElementsByTagName("thead")[0].getElementsByTagName("tr")[0];
+
+        // Add checkbox to header
+        if (config.checkbox) {
+            var checkbox = document.createElement("th");
+            checkbox.width = '20px';
+            checkbox.innerHTML = "<input type='checkbox' checked='checked'></input>";
+            theadRow.appendChild(checkbox);
+        }
+
         var headColumns = repeatElement(columns, col => {
             var th = document.createElement("th");
             th.innerHTML = col + "<i></i>";
