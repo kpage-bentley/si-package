@@ -10,29 +10,26 @@ var createParcoordsGrid = function (parcoords, gridElement, data) {
         up: false
     };
 
-    function createRows(elements, sortOnColumn?) {
-        // Give i elements proper classes in header
-        /*selection.select("table")
-            .selectAll("tr")
-            .selectAll("th")
-            .selectAll("i")
-                .attr("class", function(d) {
-                    var x = d3.select(this.parentNode).datum();
-                    if (x === sort.axis) {
-                        return sort.up ? "icon-chevron_down" : "icon-chevron_up";
-                    }
-                });*/
-    }
-
     function repeatElement(dataArray: any[], elementConstructor, limit?: number): any[] {
         limit = typeof limit === 'undefined' ? dataArray.length : limit;
 
         var result = [];
         for (var i = 0; i < Math.min(limit, dataArray.length); ++i) {
             var data = dataArray[i];
-            result.push(elementConstructor(data));
+            var element = elementConstructor(data, i);
+            result.push(element);
         }
         return result;
+    }
+
+    function resetHeaderIcons(skipIndex) {
+        var theadRow = gridElement.getElementsByTagName("thead")[0].getElementsByTagName("tr")[0];
+        var icons = theadRow.getElementsByTagName("i");
+        for (var i = 0; i < icons.length; ++i) {
+            if (i !== skipIndex) {
+                icons[i].className = "";
+            }
+        }
     }
 
     var dg: any = function () {
@@ -47,9 +44,17 @@ var createParcoordsGrid = function (parcoords, gridElement, data) {
 
         // Populate table header
         var theadRow = gridElement.getElementsByTagName("thead")[0].getElementsByTagName("tr")[0];
-        var headColumns = repeatElement(columns, col => {
+        var headColumns = repeatElement(columns, (col, idx) => {
             var th = document.createElement("th");
             th.innerHTML = col + "<i></i>";
+
+            th.addEventListener('mousedown', e => {
+                resetHeaderIcons(idx);
+                var icon = th.getElementsByTagName("i")[0];
+                var icons = ['', 'icon-chevron_down', 'icon-chevron_up'];
+                var index = (icons.indexOf(icon.className) + 1) % icons.length;
+                icon.className = icons[index];
+            });
             return th;
         });
         for (var i = 0; i < headColumns.length; ++i) {
@@ -89,7 +94,6 @@ var createParcoordsGrid = function (parcoords, gridElement, data) {
 
     dg.brush = function(elements) {
         sort.axis = null;
-        createRows(elements);
     };
 
     return dg;
