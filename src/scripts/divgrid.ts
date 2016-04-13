@@ -2,6 +2,9 @@
 
 var createParcoordsGrid = function (parcoords, gridElement, data) {
 
+    // Preserve a copy of the data as it was initially
+    var originalData = data.slice();
+
     var config = {
         checkbox: true
     };
@@ -104,10 +107,19 @@ var createParcoordsGrid = function (parcoords, gridElement, data) {
 
         // Add checkbox to header
         if (config.checkbox) {
-            var checkbox = document.createElement("th");
-            checkbox.width = '20px';
-            checkbox.innerHTML = "<input type='checkbox' checked='checked'></input>";
-            theadRow.appendChild(checkbox);
+            var th = document.createElement("th");
+            th.width = '20px';
+            th.innerHTML = "<input type='checkbox' checked='checked'></input>";
+            var checkbox = th.getElementsByTagName("input")[0];
+            checkbox.addEventListener('change', e => {
+                if (checkbox.checked) {
+                    data = originalData.slice();
+                } else {
+                    data = [];
+                }
+                createRows();
+            });
+            theadRow.appendChild(th);
         }
 
         var headColumns = repeatElement(columns, col => {
