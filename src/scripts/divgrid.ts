@@ -9,8 +9,27 @@ var createParcoordsGrid = function (parcoords, gridElement, data) {
     // Total number of rows to display
     const GRID_ROWS = 50;
 
-    function createRows(sortOnColumn?: string, sortUp?: boolean) {
+    function createRows() {
         var columns = d3.keys(data[0]);
+
+        var sortOnColumn;
+        var sortUp;
+
+        // Determine sortOnColumn/direction from UI
+        var theadRow = gridElement.getElementsByTagName("thead")[0].getElementsByTagName("tr")[0];
+        var icons = theadRow.getElementsByTagName("i");
+        for (var i = 0; i < icons.length; ++i) {
+            var icon = icons[i];
+            if (icon.className === 'icon-chevron_down') {
+                sortOnColumn = columns[i];
+                sortUp = true;
+            }
+            else if (icon.className === 'icon-chevron_up') {
+                sortOnColumn = columns[i];
+                sortUp = false;
+            }
+        }
+
 
         // Create copy of data
         var sorted = data.slice();
@@ -32,10 +51,21 @@ var createParcoordsGrid = function (parcoords, gridElement, data) {
 
             // Add checkbox to header
             if (config.checkbox) {
-                var checkbox = document.createElement("th");
-                checkbox.width = '20px';
-                checkbox.innerHTML = "<input type='checkbox' checked='checked'></input>";
-                tr.appendChild(checkbox);
+                var th = document.createElement("th");
+                th.width = '20px';
+                th.innerHTML = "<input type='checkbox' checked='checked'></input>";
+                var checkbox = th.getElementsByTagName("input")[0];
+
+                // Triggered when checkbox is unchecked
+                checkbox.addEventListener('change', e => {
+                    var index = data.indexOf(d);
+                    if (index > -1) {
+                        data.splice(index, 1);
+                    }
+                    createRows();
+                });
+
+                tr.appendChild(th);
             }
 
             var rowColumns = repeatElement(entries, col => {
@@ -87,18 +117,13 @@ var createParcoordsGrid = function (parcoords, gridElement, data) {
             th.addEventListener('mousedown', e => {
                 resetHeaderIcons(col);
                 var icon = th.getElementsByTagName("i")[0];
-                if (icon.className === '') {
+                if (icon.className === '')
                     icon.className = 'icon-chevron_down';
-                    createRows(col, true);
-                }
-                else if (icon.className === 'icon-chevron_down') {
+                else if (icon.className === 'icon-chevron_down')
                     icon.className = 'icon-chevron_up';
-                    createRows(col, false);
-                }
-                else {
+                else
                     icon.className = '';
-                    createRows();
-                }
+                createRows();
             });
             return th;
         });
