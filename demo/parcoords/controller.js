@@ -33,7 +33,33 @@ myApp.controller('ParcoordsController', ['$scope', '$q', function ($scope, $q) {
                 value: 0
             }
         },
-        reorderable: true
+        reorderable: true,
+
+        // Used to specify custom columns to show in grid
+        // that won't show in parcoords
+        customGridColumns: [
+            {
+                name: 'rounded',
+                constructor: (d) => {
+                    var canvas = document.createElement('canvas');
+
+                    canvas.style.width = '100px';
+                    canvas.style.height = '100px';
+                    canvas.height = 100;
+                    canvas.width = 100;
+
+                    var ctx = canvas.getContext("2d");
+                    ctx.font = "14px Open Sans";
+
+                    ctx.fillText("w = " + Math.round(d.w), 10, 20);
+                    ctx.fillText("x = " + Math.round(d.x), 10, 40);
+                    ctx.fillText("y = " + Math.round(d.y), 10, 60);
+                    ctx.fillText("z = " + Math.round(d.z), 10, 80);
+
+                    return canvas;
+                }
+            }
+        ]
     };
 
 }]);
