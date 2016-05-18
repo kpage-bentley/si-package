@@ -40,7 +40,7 @@ myApp.controller('ParcoordsController', ['$scope', '$q', function ($scope, $q) {
         customGridColumns: [
             {
                 name: 'rounded',
-                constructor: (d) => {
+                constructor: function (d) {
                     var canvas = document.createElement('canvas');
 
                     canvas.style.width = '100px';
