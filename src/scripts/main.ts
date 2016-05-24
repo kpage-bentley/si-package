@@ -1,5 +1,6 @@
 /// <reference path="../../typings/angularjs/angular.d.ts" />
 /// <reference path="../../typings/d3/d3.d.ts" />
+/// <reference path="./parcoords.helper.ts" />
 
 module si.package {
 
@@ -7,12 +8,6 @@ module si.package {
 
     interface ParCoordScope {
         settings: any
-    }
-
-    interface rgb {
-        r: number;
-        g: number;
-        b: number;
     }
 
     class ParcoordsDirective {
@@ -25,15 +20,6 @@ module si.package {
 
         constructor(private $log: ILogService, private $compile: any) {
             ParcoordsDirective.that = this;
-        }
-
-        public static hexToRgb(hex: string): rgb {
-            var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-            return result ? {
-                r: parseInt(result[1], 16),
-                g: parseInt(result[2], 16),
-                b: parseInt(result[3], 16)
-            } : null;
         }
 
         public link(scope: ParCoordScope, element: angular.IAugmentedJQuery, attrs: any): void {
@@ -112,7 +98,7 @@ module si.package {
 
                         var colorValue = colorRange(index);
 
-                        var rgb = ParcoordsDirective.hexToRgb(colorValue.color);
+                        var rgb = ParcoordsHelper.hexToRgb(colorValue.color);
                         var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + colorValue.alpha + ")";
                         return rgba;
                     };
@@ -150,7 +136,7 @@ module si.package {
                     // create data table, row hover highlighting
                     if (settings.showGrid) {
                         var gridElement = graphElement.nextElementSibling;
-                        var grid = createParcoordsGrid(parcoords, gridElement, data, settings.customGridColumns);
+                        var grid = ParcoordsHelper.create(parcoords, gridElement, data, settings.customGridColumns);
 
                         parcoords.on("brush", (d) => {
                             grid.brush(d);
