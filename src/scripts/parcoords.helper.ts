@@ -13,7 +13,124 @@ class ParcoordsHelper {
         <div class='parcoords-grid'></div>
     `;
 
-    public static create(parcoords, gridElement, data, customGridColumns) {
+    public static setup(graphElement: HTMLElement, settings, getData): void {
+        graphElement.innerHTML = '';
+
+        var parcoords = (d3 as any).parcoords()(graphElement);
+
+        /// Set color
+        if (settings.color.type === "RANGE") {
+
+            var lower = {
+                color: settings.color.lower.color,
+                alpha: 1.0
+            };
+            var upper = {
+                color: settings.color.upper.color,
+                alpha: 1.0
+            };
+
+            // Set default colors
+            if (lower.color === undefined)
+                lower.color = "#de1c22";
+            if (upper.color === undefined)
+                upper.color = "#acdd4b";
+
+            // Lower includes the alpha channel
+            if ((lower.color.length - 1) % 4 === 0) {
+                var alphaLength = (lower.color.length - 1) / 4;
+
+                var color = lower.color.slice(0, -alphaLength);
+                var alphaString = lower.color.substr(lower.color.length - alphaLength);
+                var alpha = parseInt(alphaString, 16) / 255;
+
+                lower.color = color;
+                lower.alpha = alpha;
+            }
+
+            // Upper includes the alpha channel
+            if ((upper.color.length - 1) % 4 === 0) {
+                var alphaLength = (upper.color.length - 1) / 4;
+
+                var color = upper.color.slice(0, -alphaLength);
+                var alphaString = upper.color.substr(upper.color.length - alphaLength);
+                var alpha = parseInt(alphaString, 16) / 255;
+
+                upper.color = color;
+                upper.alpha = alpha;
+            }
+
+            var domain = [settings.color.lower.value, settings.color.upper.value];
+            var range = [lower, upper];
+
+            var colorRange = (d3 as any).scale.linear()
+                .domain(domain)
+                .range(range);
+
+            var colorFunction = (d) => {
+                var index = d[settings.color.axis];
+
+                var colorValue = colorRange(index);
+
+                var rgb = this.hexToRgb(colorValue.color);
+                var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + colorValue.alpha + ")";
+                return rgba;
+            };
+            parcoords.color(colorFunction);
+        }
+
+        // Function passed as color
+        else if (typeof settings.color === "function") {
+            parcoords.color(settings.color);
+        }
+
+        // Set alpha level of parcoords
+        if (settings.alpha === undefined) {
+            parcoords.alpha(0.4);
+        }
+        else {
+            parcoords.alpha(settings.alpha);
+        }
+
+        getData.then(data => {
+            parcoords.data(data);
+
+            // Hide the proper axis
+            if (settings.hideAxis) {
+                parcoords.hideAxis(settings.hideAxis);
+            }
+
+            // Render
+            parcoords.render();
+
+            // Enable brushing
+            if (settings.brushingEnabled) {
+                parcoords.brushMode("1D-axes");
+            }
+
+            // create data table, row hover highlighting
+            if (settings.showGrid) {
+                var gridElement = graphElement.nextElementSibling;
+                var grid = this.create(parcoords, gridElement, data, settings.customGridColumns);
+
+                parcoords.on("brush", (d) => {
+                    grid.brush(d);
+                });
+            }
+
+            // Set reorderable
+            if (settings.reorderable === true) {
+                parcoords.reorderable();
+            }
+
+            // Flip axis
+            if (settings.flipAxis && settings.flipAxis.length) {
+                parcoords.flipAxis(settings.flipAxis);
+            }
+        });
+    }
+
+    private static create(parcoords, gridElement, data, customGridColumns) {
 
         // Preserve a copy of the data as it was initially
         var originalData = data.slice();
@@ -212,7 +329,7 @@ class ParcoordsHelper {
         };
     }
 
-    public static hexToRgb(hex: string): rgb {
+    private static hexToRgb(hex: string): rgb {
         let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
         return result ? {
             r: parseInt(result[1], 16),
