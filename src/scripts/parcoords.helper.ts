@@ -6,6 +6,29 @@ interface rgb {
     b: number;
 }
 
+interface ParcoordSettings {
+    alpha: number;
+    brushingEnabled: boolean;
+    color: any;
+    customGridColumns: any;
+    flipAxis: string[];
+    hideAxis: boolean;
+    showGrid: boolean;
+    reorderable: boolean;
+}
+
+interface ColorSetting {
+    type: string;
+    axis: string;
+    upper: LimitSetting;
+    lower: LimitSetting;
+}
+
+interface LimitSetting {
+    color: string;
+    value: number;
+}
+
 class ParcoordsHelper {
 
     public static template = `
@@ -13,20 +36,26 @@ class ParcoordsHelper {
         <div class='parcoords-grid'></div>
     `;
 
-    public static setup(graphElement: HTMLElement, settings, getData): void {
+    public static setup(graphElement: HTMLElement, settings: ParcoordSettings, getData): void {
         graphElement.innerHTML = '';
 
-        var parcoords = (d3 as any).parcoords()(graphElement);
+        let parcoords = (d3 as any).parcoords()(graphElement);
 
-        /// Set color
-        if (settings.color.type === "RANGE") {
+        // Function passed as color
+        if (typeof settings.color === "function") {
+            parcoords.color(settings.color);
+        }
+
+        /// ColorSetting passed
+        else if (settings.color.type === "RANGE") {
+            let color = settings.color as ColorSetting;
 
             var lower = {
-                color: settings.color.lower.color,
+                color: color.lower.color,
                 alpha: 1.0
             };
             var upper = {
-                color: settings.color.upper.color,
+                color: color.upper.color,
                 alpha: 1.0
             };
 
@@ -38,11 +67,11 @@ class ParcoordsHelper {
 
             // Lower includes the alpha channel
             if ((lower.color.length - 1) % 4 === 0) {
-                var alphaLength = (lower.color.length - 1) / 4;
+                let alphaLength = (lower.color.length - 1) / 4;
 
-                var color = lower.color.slice(0, -alphaLength);
-                var alphaString = lower.color.substr(lower.color.length - alphaLength);
-                var alpha = parseInt(alphaString, 16) / 255;
+                let color = lower.color.slice(0, -alphaLength);
+                let alphaString = lower.color.substr(lower.color.length - alphaLength);
+                let alpha = parseInt(alphaString, 16) / 255;
 
                 lower.color = color;
                 lower.alpha = alpha;
@@ -50,42 +79,37 @@ class ParcoordsHelper {
 
             // Upper includes the alpha channel
             if ((upper.color.length - 1) % 4 === 0) {
-                var alphaLength = (upper.color.length - 1) / 4;
+                let alphaLength = (upper.color.length - 1) / 4;
 
-                var color = upper.color.slice(0, -alphaLength);
-                var alphaString = upper.color.substr(upper.color.length - alphaLength);
-                var alpha = parseInt(alphaString, 16) / 255;
+                let color = upper.color.slice(0, -alphaLength);
+                let alphaString = upper.color.substr(upper.color.length - alphaLength);
+                let alpha = parseInt(alphaString, 16) / 255;
 
                 upper.color = color;
                 upper.alpha = alpha;
             }
 
-            var domain = [settings.color.lower.value, settings.color.upper.value];
-            var range = [lower, upper];
+            let domain = [color.lower.value, color.upper.value];
+            let range = [lower, upper];
 
-            var colorRange = (d3 as any).scale.linear()
+            let colorRange = (d3 as any).scale.linear()
                 .domain(domain)
                 .range(range);
 
-            var colorFunction = (d) => {
-                var index = d[settings.color.axis];
+            let colorFunction = (d) => {
+                let index = d[color.axis];
 
-                var colorValue = colorRange(index);
+                let colorValue = colorRange(index);
 
-                var rgb = this.hexToRgb(colorValue.color);
-                var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + colorValue.alpha + ")";
+                let rgb = this.hexToRgb(colorValue.color);
+                let rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + colorValue.alpha + ")";
                 return rgba;
             };
             parcoords.color(colorFunction);
         }
 
-        // Function passed as color
-        else if (typeof settings.color === "function") {
-            parcoords.color(settings.color);
-        }
-
         // Set alpha level of parcoords
-        if (settings.alpha === undefined) {
+        if (typeof settings.alpha === "undefined") {
             parcoords.alpha(0.4);
         }
         else {
