@@ -36,7 +36,7 @@ class ParcoordsHelper {
         <div class='parcoords-grid'></div>
     `;
 
-    public static setup(graphElement: HTMLElement, settings: ParcoordSettings, getData): void {
+    public static setup(graphElement: HTMLElement, settings: ParcoordSettings, getData: any): void {
         graphElement.innerHTML = '';
 
         let parcoords = (d3 as any).parcoords()(graphElement);
@@ -50,20 +50,15 @@ class ParcoordsHelper {
         else if (settings.color.type === "RANGE") {
             let color = settings.color as ColorSetting;
 
-            var lower = {
-                color: color.lower.color,
-                alpha: 1.0
-            };
-            var upper = {
-                color: color.upper.color,
-                alpha: 1.0
-            };
-
             // Set default colors
-            if (lower.color === undefined)
-                lower.color = "#de1c22";
-            if (upper.color === undefined)
-                upper.color = "#acdd4b";
+            let lower = {
+                color: color.lower.color ? color.lower.color : "#de1c22",
+                alpha: 1.0
+            };
+            let upper = {
+                color: color.upper.color ? color.upper.color : "#acdd4b",
+                alpha: 1.0
+            };
 
             // Lower includes the alpha channel
             if ((lower.color.length - 1) % 4 === 0) {
