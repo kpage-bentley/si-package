@@ -8,6 +8,11 @@ interface rgb {
 
 class ParcoordsHelper {
 
+    public static template = `
+        <div class='parcoords' style='height:200px;'></div>
+        <div class='parcoords-grid'></div>
+    `;
+
     public static create(parcoords, gridElement, data, customGridColumns) {
 
         // Preserve a copy of the data as it was initially
