@@ -4,8 +4,6 @@
 
 module si.package {
 
-    import ILogService = angular.ILogService;
-
     interface ParCoordScope {
         settings: any
     }
@@ -18,7 +16,7 @@ module si.package {
             settings: '='
         };
 
-        constructor(private $log: ILogService, private $compile: any) {
+        constructor(private $compile: any) {
             ParcoordsDirective.that = this;
         }
 
@@ -165,10 +163,10 @@ module si.package {
         }
 
         public static Factory() {
-            var directive = ($log, $compile) => {
-                return new ParcoordsDirective($log, $compile);
+            var directive = ($compile) => {
+                return new ParcoordsDirective($compile);
             };
-            directive['$inject'] = ['$log', '$compile'];
+            directive['$inject'] = ['$compile'];
 
             return directive;
         }
