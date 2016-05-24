@@ -14,6 +14,7 @@ interface ParcoordSettings {
     flipAxis: string[];
     hideAxis: boolean;
     showGrid: boolean;
+    gridRowColor: (data: any) => string;
     reorderable: boolean;
 }
 
@@ -130,7 +131,7 @@ class ParcoordsHelper {
             // create data table, row hover highlighting
             if (settings.showGrid) {
                 var gridElement = graphElement.nextElementSibling;
-                var grid = this.create(parcoords, gridElement, data, settings.customGridColumns);
+                var grid = this.createGrid(parcoords, gridElement, data, settings);
 
                 parcoords.on("brush", (d) => {
                     grid.brush(d);
@@ -149,13 +150,13 @@ class ParcoordsHelper {
         });
     }
 
-    private static create(parcoords, gridElement, data, customGridColumns) {
+    private static createGrid(parcoords, gridElement, data, settings: ParcoordSettings) {
 
         // Preserve a copy of the data as it was initially
         var originalData = data.slice();
 
-        if (typeof customGridColumns === 'undefined') {
-            customGridColumns = [];
+        if (typeof settings.customGridColumns === 'undefined') {
+            settings.customGridColumns = [];
         }
 
         var config = {
@@ -205,6 +206,10 @@ class ParcoordsHelper {
                 var entries = columns.map(col => d[col]);
                 var tr = document.createElement("tr");
 
+                if (typeof settings.gridRowColor === "function") {
+                    tr.style.background = settings.gridRowColor(d);
+                }
+
                 // Add checkbox to header
                 if (config.checkbox) {
                     var th = document.createElement("th");
@@ -232,9 +237,9 @@ class ParcoordsHelper {
                 for (var i = 0; i < rowColumns.length; ++i) {
                     tr.appendChild(rowColumns[i]);
                 }
-                for (var i = 0; i < customGridColumns.length; ++i) {
+                for (var i = 0; i < settings.customGridColumns.length; ++i) {
                     var td = document.createElement("td");
-                    td.appendChild(customGridColumns[i].constructor(d));
+                    td.appendChild(settings.customGridColumns[i].constructor(d));
                     tr.appendChild(td);
                 }
 
@@ -293,8 +298,8 @@ class ParcoordsHelper {
             for (var i = 0; i < headColumns.length; ++i) {
                 theadRow.appendChild(headColumns[i]);
             }
-            for (var i = 0; i < customGridColumns.length; ++i) {
-                var custom = customGridColumns[i];
+            for (var i = 0; i < settings.customGridColumns.length; ++i) {
+                var custom = settings.customGridColumns[i];
                 var th = document.createElement("th");
                 th.innerHTML = custom.name;
                 theadRow.appendChild(th);
