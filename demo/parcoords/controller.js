@@ -33,6 +33,14 @@ myApp.controller('ParcoordsController', ['$scope', '$q', function ($scope, $q) {
                 value: 0
             }
         },
+        gridRowColor: function (d) {
+            if (d.y > 60) {
+                return "rgba(255, 0, 0, 0.1)";
+            }
+            else {
+                return "rgba(0, 255, 0, 0.1)";
+            }
+        },
         reorderable: true,
 
         // Used to specify custom columns to show in grid
