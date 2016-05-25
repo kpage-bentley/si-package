@@ -32,12 +32,30 @@ interface LimitSetting {
 
 class ParcoordsHelper {
 
+    // TODO: Rewrite this so more than one can exist
+    public static currentPage: number;
+
     public static template = `
         <div class='parcoords' style='height:200px;'></div>
-        <div class='parcoords-grid'></div>
+        <div class='parcoords-grid'>
+            <table class='table table-hover'>
+                <thead>
+                    <tr></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <div>
+                <i class="icon-chevron_left"></i>
+                <span>
+                </span>
+                <i class="icon-chevron_right"></i>
+            </div>
+        </div>
     `;
 
     public static setup(graphElement: HTMLElement, settings: ParcoordSettings, getData: any): void {
+        this.currentPage = 0;
+
         graphElement.innerHTML = '';
 
         let parcoords = (d3 as any).parcoords()(graphElement);
@@ -130,7 +148,7 @@ class ParcoordsHelper {
 
             // create data table, row hover highlighting
             if (settings.showGrid) {
-                var gridElement = graphElement.nextElementSibling;
+                var gridElement = graphElement.nextElementSibling as HTMLElement;
                 var grid = this.createGrid(parcoords, gridElement, data, settings);
 
                 parcoords.on("brush", (d) => {
@@ -150,7 +168,7 @@ class ParcoordsHelper {
         });
     }
 
-    private static createGrid(parcoords, gridElement, data, settings: ParcoordSettings) {
+    private static createGrid(parcoords, gridElement: HTMLElement, data, settings: ParcoordSettings) {
 
         // Preserve a copy of the data as it was initially
         var originalData = data.slice();
@@ -164,9 +182,9 @@ class ParcoordsHelper {
         };
 
         // Total number of rows to display
-        const GRID_ROWS = 50;
+        const GRID_ROWS = 10;
 
-        function createRows() {
+        let createRows = () => {
             var columns = d3.keys(data[0]);
 
             var sortOnColumn;
@@ -187,7 +205,6 @@ class ParcoordsHelper {
                 }
             }
 
-
             // Create copy of data
             var sorted = data.slice();
             if (typeof sortOnColumn !== 'undefined') {
@@ -202,6 +219,10 @@ class ParcoordsHelper {
             // Populate table body
             var tbody = gridElement.getElementsByTagName("tbody")[0];
             tbody.innerHTML = "";
+
+            if (this.currentPage < 0) this.currentPage += 1;
+            if (this.currentPage * GRID_ROWS >= sorted.length) this.currentPage -= 1;
+
             var tableRows = repeatElement(sorted, d => {
                 var entries = columns.map(col => d[col]);
                 var tr = document.createElement("tr");
@@ -249,17 +270,25 @@ class ParcoordsHelper {
                 tr.addEventListener('mouseout', parcoords.unhighlight);
 
                 return tr;
-            }, GRID_ROWS)
+            }, GRID_ROWS, this.currentPage * GRID_ROWS)
+
             for (var i = 0; i < tableRows.length; ++i) {
                 tbody.appendChild(tableRows[i]);
             }
+
+            let startIndex = this.currentPage * GRID_ROWS;
+            let endIndex = startIndex + GRID_ROWS;
+            if (endIndex > sorted.length) endIndex = sorted.length;
+
+            gridElement.getElementsByTagName("span")[0].textContent = (startIndex + 1) + " - " + endIndex + " of " + sorted.length;
         }
 
         function createHeader() {
-            var columns = d3.keys(data[0]);
+            let columns = d3.keys(data[0]);
 
             // Populate table header
-            var theadRow = gridElement.getElementsByTagName("thead")[0].getElementsByTagName("tr")[0];
+            let theadRow = gridElement.getElementsByTagName("thead")[0].getElementsByTagName("tr")[0];
+            theadRow.innerHTML = "";
 
             // Add checkbox to header
             if (config.checkbox) {
@@ -307,23 +336,20 @@ class ParcoordsHelper {
         }
 
         function createTable() {
-
-            // Create table skeleton
-            gridElement.innerHTML = "<table class='table table-hover'>" +
-                                        "<thead><tr></tr></thead>" +
-                                        "<tbody></tbody>" +
-                                    "</table>";
             createHeader();
             createRows();
         }
 
-        function repeatElement(dataArray: any[], elementConstructor, limit?: number): any[] {
-            limit = typeof limit === 'undefined' ? dataArray.length : limit;
+        function repeatElement(dataArray: any[], elementConstructor, count?: number, offset?: number): any[] {
+            count = typeof count === 'undefined' ? dataArray.length : count;
 
-            var result = [];
-            for (var i = 0; i < Math.min(limit, dataArray.length); ++i) {
-                var data = dataArray[i];
-                var element = elementConstructor(data);
+            let startIndex = typeof offset === 'undefined' ? 0 : offset;
+            let endIndex = startIndex + count > dataArray.length ? dataArray.length : startIndex + count;
+
+            let result = [];
+            for (let i = startIndex; i < endIndex; ++i) {
+                let data = dataArray[i];
+                let element = elementConstructor(data);
                 result.push(element);
             }
             return result;
@@ -347,6 +373,16 @@ class ParcoordsHelper {
         }
 
         createTable();
+
+        // Add click events to left and right icons
+        gridElement.getElementsByClassName("icon-chevron_left")[0].addEventListener("click", e => {
+            this.currentPage -= 1;
+            createRows();
+        });
+        gridElement.getElementsByClassName("icon-chevron_right")[0].addEventListener("click", e => {
+            this.currentPage += 1;
+            createRows();
+        });
 
         return {
             brush: brush
