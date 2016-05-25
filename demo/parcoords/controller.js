@@ -52,17 +52,18 @@ myApp.controller('ParcoordsController', ['$scope', '$q', function ($scope, $q) {
                     var canvas = document.createElement('canvas');
 
                     canvas.style.width = '100px';
-                    canvas.style.height = '100px';
-                    canvas.height = 100;
+                    canvas.style.height = '30px';
+                    canvas.height = 30;
                     canvas.width = 100;
 
                     var ctx = canvas.getContext("2d");
-                    ctx.font = "14px Open Sans";
+                    ctx.font = "14px Consolas";
 
-                    ctx.fillText("w = " + Math.round(d.w), 10, 20);
-                    ctx.fillText("x = " + Math.round(d.x), 10, 40);
-                    ctx.fillText("y = " + Math.round(d.y), 10, 60);
-                    ctx.fillText("z = " + Math.round(d.z), 10, 80);
+                    var text1 = "w = " + Math.round(d.w) + "; x = " + Math.round(d.x);
+                    var text2 = "y = " + Math.round(d.y) + "; z = " + Math.round(d.z);
+
+                    ctx.fillText(text1, 0, 10);
+                    ctx.fillText(text2, 0, 25);
 
                     return canvas;
                 }
