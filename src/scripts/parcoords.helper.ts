@@ -34,7 +34,14 @@ class ParcoordsHelper {
 
     public static template = `
         <div class='parcoords' style='height:200px;'></div>
-        <div class='parcoords-grid'></div>
+        <div class='parcoords-grid'>
+            <table class='table table-hover'>
+                <thead>
+                    <tr></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
     `;
 
     public static setup(graphElement: HTMLElement, settings: ParcoordSettings, getData: any): void {
@@ -164,7 +171,7 @@ class ParcoordsHelper {
         };
 
         // Total number of rows to display
-        const GRID_ROWS = 50;
+        const GRID_ROWS = 5;
 
         function createRows() {
             var columns = d3.keys(data[0]);
@@ -186,7 +193,6 @@ class ParcoordsHelper {
                     sortUp = false;
                 }
             }
-
 
             // Create copy of data
             var sorted = data.slice();
@@ -256,10 +262,11 @@ class ParcoordsHelper {
         }
 
         function createHeader() {
-            var columns = d3.keys(data[0]);
+            let columns = d3.keys(data[0]);
 
             // Populate table header
-            var theadRow = gridElement.getElementsByTagName("thead")[0].getElementsByTagName("tr")[0];
+            let theadRow = gridElement.getElementsByTagName("thead")[0].getElementsByTagName("tr")[0];
+            theadRow.innerHTML = "";
 
             // Add checkbox to header
             if (config.checkbox) {
@@ -307,12 +314,6 @@ class ParcoordsHelper {
         }
 
         function createTable() {
-
-            // Create table skeleton
-            gridElement.innerHTML = "<table class='table table-hover'>" +
-                                        "<thead><tr></tr></thead>" +
-                                        "<tbody></tbody>" +
-                                    "</table>";
             createHeader();
             createRows();
         }
