@@ -2,7 +2,8 @@ var myApp = angular.module('si.package.demo');
 
 myApp.controller('ParcoordsController', ['$scope', '$q', function ($scope, $q) {
 
-    $scope.settings = {
+    // Old Version
+    $scope.oldSettings = {
         alpha: 1.0,
         getData: function () {
             var data = [];
@@ -70,5 +71,43 @@ myApp.controller('ParcoordsController', ['$scope', '$q', function ($scope, $q) {
             }
         ]
     };
+
+    // New Version
+    $scope.settings = {
+        alpha: 1.0,
+        brushingEnabled: true,
+        colorRange: {
+            type: "RANGE",
+            axis: "y",
+            upper: {
+                color: "#bc103211",
+                value: 100
+            },
+            lower: {
+                color: "#10bc44FF",
+                value: 0
+            }
+        },
+        // Not supported in parcoords yet!
+        //flipAxis: ["y"],
+        hideAxis: ["w"],
+        reorderable: true
+    };
+
+    $scope.data = [];
+    $scope.selectedIndices = [];
+
+    setTimeout(function () {
+        for (var i = 0; i < 250; ++i) {
+            $scope.data.push({
+                w: Math.random() * 100,
+                x: Math.random() * 100,
+                y: Math.random() * 100,
+                z: Math.random() * 100
+            });
+            $scope.selectedIndices.push(i);
+        }
+        $scope.$apply();
+    }, 0);
 
 }]);
