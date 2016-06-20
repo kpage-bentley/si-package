@@ -2,11 +2,68 @@
 
 This repository contains all of the files that other projects will need to access from the Structural Insights application.
 
-## Parallel Coordinates
+## Latest Version
+
+### Parallel Coordinates
+
+```html
+    <parallel-coords-chart
+        data-settings="settings"
+        data-data="data"
+        data-selected-indices="selectedIndices">
+    </parallel-coords-chart>
+```
+
+##### Settings
+
+These are the settings. Note that you can either pass `colorFunction` or `colorRange`, not both.
+
+| Key               | Type                  | Description                           | Default      |
+|-------------------|-----------------------|---------------------------------------|--------------|
+| `alpha`           | `number`              | Set the brush alpha level.            | `0.4`        |
+| `brushingEnabled` | `boolean`             | Whether you can brush.                | `false`      |
+| `colorFunction`   | `(d: any) => string`  | Used to determine the brush color.    | `null`       |
+| `colorRange`      | `ColorRange`          | Used to determine the brush color.    | `null`       |
+| `flipAxis`        | `string[]`            | Flip an axis.                         | `[]`         |
+| `hideAxis`        | `string[]`            | Hide an axis.                         | `[]`         |
+| `reorderable`     | `boolean`             | Whether you reorder axis by dragging. | `false`      |
+
+```javascript
+interface ColorRange {
+    axis: string;
+    upper: ColorRangeLimit;
+    lower: ColorRangeLimit;
+}
+interface ColorRangeLimit {
+    color?: string;
+    value: number;
+}
+```
+
+##### Data
+
+Each item in the array can represent one brush stroke.
+
+```javascript
+any[];
+```
+
+##### Selected Indices
+
+This array is used to specify which indices from data should be brushed (in case you wanted to draw a subset of the data).
+
+```javascript
+number[];
+```
+
+
+## Deprecated Version
+
+### Parallel Coordinates
 
 `<si-parcoords data-settings="settings"></si-parcoords>`
 
-#### Settings
+##### Settings
 
 | Key               | Type       | Description                           | Default      |
 |-------------------|------------|---------------------------------------|--------------|
@@ -18,7 +75,7 @@ This repository contains all of the files that other projects will need to acces
 | `showGrid`        | `boolean`  |  show the table beneath the chart     | `false`      |
 | `reorderable`     |            |                                       |              |
 
-### Color
+#### Color
 
 Supports passing a function in the form:
 
@@ -45,7 +102,7 @@ Or you can pass an object of the type:
     }
 }
 ```
-#Demo
+## Demo
 http://kpage-bentley.github.io/si-package/
 
 [//]: # (TODO:)
