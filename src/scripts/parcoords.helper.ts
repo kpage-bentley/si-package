@@ -12,7 +12,7 @@ interface ParcoordSettings {
     color: any;
     customGridColumns: any;
     flipAxis: string[];
-    hideAxis: boolean;
+    hideAxis: string[];
     showGrid: boolean;
     gridRowColor: (data: any) => string;
     reorderable: boolean;

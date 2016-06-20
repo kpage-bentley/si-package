@@ -1,3 +1,13 @@
 <div data-ng-controller="ParcoordsController">
-    <si-parcoords data-settings="settings"></si-parcoords>
+
+    <h1>New Version</h1>
+    <parallel-coords-chart
+        data-settings="settings"
+        data-data="data"
+        data-selected-indices="selectedIndices">
+    </parallel-coords-chart>
+
+    <h1>Old Version</h1>
+    <si-parcoords data-settings="oldSettings"></si-parcoords>
+
 </div>
