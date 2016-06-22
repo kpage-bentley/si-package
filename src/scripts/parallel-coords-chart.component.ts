@@ -38,7 +38,7 @@ class ParallelCoordsChartComponent {
             data: '=',
             selectedIndices: '='
         };
-        this.template = `<div class='parcoords' style="height:200px"></div>`;
+        this.template = `<div class='parcoords' style='height:100%'></div>`;
     }
 
     public link(scope: any, element: angular.IAugmentedJQuery, attrs: any): void {
