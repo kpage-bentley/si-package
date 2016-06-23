@@ -42,10 +42,40 @@ var pc = function(selection) {
   // svg tick and brush layers
   pc.svg = selection
     .append("svg")
+      .attr("class", "parcoords-svg")
       .attr("width", __.width)
       .attr("height", __.height)
+      .style("font", "14px sans-serif")
+      .style("position", "absolute")
     .append("svg:g")
       .attr("transform", "translate(" + __.margin.left + "," + __.margin.top + ")");
+
+  selection.select("svg").append("style")
+    .attr("type", "text/css")
+    .html(
+      "/* <![CDATA[ */" +
+
+      ".parcoords-svg rect.background {" +
+        "fill: transparent;" +
+      "}" +
+      ".parcoords-svg rect.background:hover {" +
+        "fill: rgba(120,120,120,0.2);" +
+      "}" +
+      ".parcoords-svg .resize rect {" +
+        "fill: rgba(0,0,0,0.1);" +
+      "}" +
+      ".parcoords-svg rect.extent {" +
+        "fill: rgba(255,255,255,0.25);" +
+        "stroke: rgba(0,0,0,0.6);" +
+      "}" +
+      ".parcoords-svg .axis line, .parcoords-svg .axis path {" +
+        "fill: none;" +
+        "stroke: #222;" +
+        "shape-rendering: crispEdges;" +
+      "} " +
+
+      "/* ]]> */"
+    );
 
   return pc;
 };
@@ -1057,7 +1087,7 @@ pc.brushMode = function(mode) {
       .attr("stroke-width", 2);
 
     drag
-      .on("drag", function(d, i) { 
+      .on("drag", function(d, i) {
         var ev = d3.event;
         i = i + 1;
         strum["p" + i][0] = Math.min(Math.max(strum.minX + 1, ev.x), strum.maxX);
@@ -1522,11 +1552,11 @@ pc.brushMode = function(mode) {
       .attr("class", "arc")
       .style("fill", "orange")
       .style("opacity", 0.5);
-    
+
     path
       .attr("d", arc.arc)
       .attr("transform", "translate(" + arc.p1[0] + "," + arc.p1[1] + ")");
-    		  
+
     line.enter()
       .append("line")
       .attr("id", "arc-" + id)
@@ -1541,20 +1571,20 @@ pc.brushMode = function(mode) {
       .attr("stroke-width", 2);
 
     drag
-      .on("drag", function(d, i) { 
+      .on("drag", function(d, i) {
         var ev = d3.event,
         	angle = 0;
-        
+
         i = i + 2;
-        
+
         arc["p" + i][0] = Math.min(Math.max(arc.minX + 1, ev.x), arc.maxX);
         arc["p" + i][1] = Math.min(Math.max(arc.minY, ev.y), arc.maxY);
-        
+
         angle = i === 3 ? arcs.startAngle(id) : arcs.endAngle(id);
-        
+
         if ((arc.startAngle < Math.PI && arc.endAngle < Math.PI && angle < Math.PI) ||
         		(arc.startAngle >= Math.PI && arc.endAngle >= Math.PI && angle >= Math.PI)) {
-	        
+
         	if (i === 2) {
 	        	arc.endAngle = angle;
 	        	arc.arc.endAngle(angle);
@@ -1562,9 +1592,9 @@ pc.brushMode = function(mode) {
 	        	arc.startAngle = angle;
 	        	arc.arc.startAngle(angle);
 	        }
-	        
+
         }
-        
+
         drawStrum(arc, i - 2);
       })
       .on("dragend", onDragEnd());
@@ -1668,50 +1698,50 @@ pc.brushMode = function(mode) {
       drawStrum(arc, 1);
     };
   }
-  
+
   function hypothenuse(a, b) {
 	  return Math.sqrt(a*a + b*b);
   }
-  
+
   var rad = (function() {
 	  var c = Math.PI / 180;
 	  return function(angle) {
 		  return angle * c;
 	  };
   })();
-  
+
   var deg = (function() {
 	  var c = 180 / Math.PI;
 	  return function(angle) {
 		  return angle * c;
-	  }; 
+	  };
   })();
-  
+
   var signedAngle = function(angle) {
 	  var ret = angle;
 	  if (angle > Math.PI) {
-		ret = angle - 1.5 * Math.PI; 
-		ret = angle - 1.5 * Math.PI; 
+		ret = angle - 1.5 * Math.PI;
+		ret = angle - 1.5 * Math.PI;
 	  } else {
 	  	ret = angle - 0.5 * Math.PI;
 	   	ret = angle - 0.5 * Math.PI;
 	  }
 	  return -ret;
   }
-  
+
   function containmentTest(arc) {
     var startAngle = signedAngle(arc.startAngle);
     var endAngle = signedAngle(arc.endAngle);
-    
+
     if (startAngle > endAngle) {
     	var tmp = startAngle;
     	startAngle = endAngle;
     	endAngle = tmp;
     }
-    
+
     // test if segment angle is contained in angle interval
     return function(a) {
-      
+
       if (a >= startAngle && a <= endAngle) {
         return true;
       }
@@ -1778,10 +1808,10 @@ pc.brushMode = function(mode) {
       if (arc && arc.p1[0] === arc.p2[0] && arc.p1[1] === arc.p2[1]) {
         removeStrum(arcs);
       }
-      
+
       if (arc) {
     	  var angle = arcs.startAngle(arcs.active);
-    	  
+
     	  arc.startAngle = angle;
           arc.endAngle = angle;
           arc.arc
@@ -1789,8 +1819,8 @@ pc.brushMode = function(mode) {
             .startAngle(angle)
             .endAngle(angle);
       }
-      
-      
+
+
       brushed = selected(arcs);
       arcs.active = undefined;
       __.brushed = brushed;
@@ -1832,16 +1862,16 @@ pc.brushMode = function(mode) {
 
       return arc.maxX - arc.minX;
     };
-    
+
     // returns angles in [-PI/2, PI/2]
     angle = function(p1, p2) {
         var a = p1[0] - p2[0],
         	b = p1[1] - p2[1],
         	c = hypothenuse(a, b);
-        
+
         return Math.asin(b/c);
     }
-    
+
     // returns angles in [0, 2 * PI]
     arcs.endAngle = function(id) {
     	var arc = arcs[id];
@@ -1850,30 +1880,30 @@ pc.brushMode = function(mode) {
         }
     	var sAngle = angle(arc.p1, arc.p2),
     		uAngle = -sAngle + Math.PI / 2;
-    	
+
     	if (arc.p1[0] > arc.p2[0]) {
     		uAngle = 2 * Math.PI - uAngle;
     	}
-    	
+
     	return uAngle;
     }
-    
+
     arcs.startAngle = function(id) {
     	var arc = arcs[id];
     	if (arc === undefined) {
             return undefined;
         }
-    	
+
     	var sAngle = angle(arc.p1, arc.p3),
     		uAngle = -sAngle + Math.PI / 2;
-    	
+
     	if (arc.p1[0] > arc.p3[0]) {
     		uAngle = 2 * Math.PI - uAngle;
     	}
-    	
+
     	return uAngle;
     }
-    
+
     arcs.length = function(id) {
     	var arc = arcs[id];
 
@@ -1884,7 +1914,7 @@ pc.brushMode = function(mode) {
         var a = arc.p1[0] - arc.p2[0],
         	b = arc.p1[1] - arc.p2[1],
         	c = hypothenuse(a, b);
-        	
+
         return(c);
     }
 
@@ -2033,6 +2063,45 @@ function position(d) {
 pc.version = "0.7.0";
   // this descriptive text should live with other introspective methods
   pc.toString = function() { return "Parallel Coordinates: " + __.dimensions.length + " dimensions (" + d3.keys(__.data[0]).length + " total) , " + __.data.length + " rows"; };
+
+  pc.screenshot = function() {
+
+    // Create a canvas element to store the merged canvases
+    var mergedCanvas = document.createElement("canvas");
+    mergedCanvas.width = pc.canvas.foreground.clientWidth;
+    mergedCanvas.height = pc.canvas.foreground.clientHeight + 30;
+    var context = mergedCanvas.getContext("2d");
+    context.fillStyle = "#ffffff";
+    context.fillRect(0, 0, mergedCanvas.width, mergedCanvas.height);
+
+    // Merge the canvases
+    for (var key in pc.canvas) {
+      context.drawImage(pc.canvas[key], 0, 24);
+    }
+
+    // Add SVG to canvas
+    var DOMURL = window.URL || window.webkitURL || window;
+    var serializer = new XMLSerializer();
+    var svgStr = serializer.serializeToString(pc.selection.select("svg")[0][0]);
+
+    // Create a Data URI.
+    var src = 'data:image/svg+xml;base64,' + window.btoa(svgStr);
+    var img = new Image();
+    img.onload = function () {
+      context.drawImage(img, 0, 0);
+
+      var data = mergedCanvas.toDataURL("image/jpeg");
+
+      // Download the image
+      var download = document.createElement("a");
+      download.href = data;
+      download.download = "parallel-coordinate.png";
+      download.click();
+    };
+
+    img.src = src;
+
+  };
 
   return pc;
 };
