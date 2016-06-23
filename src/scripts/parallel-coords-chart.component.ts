@@ -34,6 +34,7 @@ class ParallelCoordsChartComponent {
 
         this.restrict = 'EA';
         this.scope = {
+            control: '=',
             settings: '=',
             data: '=',
             selectedIndices: '='
@@ -42,6 +43,7 @@ class ParallelCoordsChartComponent {
     }
 
     public link(scope: any, element: angular.IAugmentedJQuery, attrs: any): void {
+
         // Set defaults
         if (typeof scope.settings.alpha === "undefined") {
             scope.settings.alpha = 0.4;
@@ -88,6 +90,17 @@ class ParallelCoordsChartComponent {
 
         // Create parcoords element
         let parcoords = (d3 as any).parcoords()(element);
+
+        let saveScreenshot = function () {
+            parcoords.screenshot();
+        };
+
+        // Set save object
+        if (scope.control) {
+            scope.control = {
+                saveScreenshot: saveScreenshot
+            };
+        }
 
         // Color settings
         if (typeof settings.colorFunction !== "undefined") {

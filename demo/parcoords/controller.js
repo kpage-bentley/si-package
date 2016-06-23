@@ -110,4 +110,10 @@ myApp.controller('ParcoordsController', ['$scope', '$q', function ($scope, $q) {
         $scope.$apply();
     }, 0);
 
+    $scope.innerControl = {};
+
+    $scope.clickSaveScreenshot = function() {
+        $scope.innerControl.saveScreenshot();
+    };
+
 }]);
