@@ -42,40 +42,12 @@ var pc = function(selection) {
   // svg tick and brush layers
   pc.svg = selection
     .append("svg")
-      .attr("class", "parcoords-svg")
       .attr("width", __.width)
       .attr("height", __.height)
       .style("font", "14px sans-serif")
       .style("position", "absolute")
     .append("svg:g")
       .attr("transform", "translate(" + __.margin.left + "," + __.margin.top + ")");
-
-  selection.select("svg").append("style")
-    .attr("type", "text/css")
-    .html(
-      "/* <![CDATA[ */" +
-
-      ".parcoords-svg rect.background {" +
-        "fill: transparent;" +
-      "}" +
-      ".parcoords-svg rect.background:hover {" +
-        "fill: rgba(120,120,120,0.2);" +
-      "}" +
-      ".parcoords-svg .resize rect {" +
-        "fill: rgba(0,0,0,0.1);" +
-      "}" +
-      ".parcoords-svg rect.extent {" +
-        "fill: rgba(255,255,255,0.25);" +
-        "stroke: rgba(0,0,0,0.6);" +
-      "}" +
-      ".parcoords-svg .axis line, .parcoords-svg .axis path {" +
-        "fill: none;" +
-        "stroke: #222;" +
-        "shape-rendering: crispEdges;" +
-      "} " +
-
-      "/* ]]> */"
-    );
 
   return pc;
 };
@@ -657,10 +629,22 @@ pc.createAxes = function() {
       .attr("transform", function(d) { return "translate(" + xscale(d) + ")"; });
 
   // Add an axis and title.
-  g.append("svg:g")
+  var axisElement = g.append("svg:g")
       .attr("class", "axis")
       .attr("transform", "translate(0,0)")
-      .each(function(d) { d3.select(this).call(axis.scale(yscale[d])); })
+      .each(function(d) {
+        var axisElement = d3.select(this).call(axis.scale(yscale[d]));
+
+        axisElement.selectAll("path")
+            .style("fill", "none")
+            .style("stroke", "#222")
+            .style("shape-rendering", "crispEdges");
+
+        axisElement.selectAll("line")
+            .style("fill", "none")
+            .style("stroke", "#222")
+            .style("shape-rendering", "crispEdges");
+      })
     .append("svg:text")
       .attr({
         "text-anchor": "middle",
@@ -693,7 +677,19 @@ pc.updateAxes = function() {
     .append("svg:g")
       .attr("class", "axis")
       .attr("transform", "translate(0,0)")
-      .each(function(d) { d3.select(this).call(axis.scale(yscale[d])); })
+      .each(function(d) {
+        var axisElement = d3.select(this).call(axis.scale(yscale[d]));
+
+        axisElement.selectAll("path")
+            .style("fill", "none")
+            .style("stroke", "#222")
+            .style("shape-rendering", "crispEdges");
+
+        axisElement.selectAll("line")
+            .style("fill", "none")
+            .style("stroke", "#222")
+            .style("shape-rendering", "crispEdges");
+      })
     .append("svg:text")
       .attr({
         "text-anchor": "middle",
@@ -1031,15 +1027,26 @@ pc.brushMode = function(mode) {
     if (!g) pc.createAxes();
 
     // Add and store a brush for each axis.
-    g.append("svg:g")
+    var brush = g.append("svg:g")
       .attr("class", "brush")
       .each(function(d) {
         d3.select(this).call(brushFor(d));
       })
-      .selectAll("rect")
+
+    brush.selectAll("rect")
         .style("visibility", null)
         .attr("x", -15)
         .attr("width", 30);
+
+    brush.selectAll("rect.background")
+        .style("fill", "transparent");
+
+    brush.selectAll("rect.extent")
+        .style("fill", "rgba(255,255,255,0.25)")
+        .style("stroke", "rgba(0,0,0,0.6)");
+
+    brush.selectAll(".resize rect")
+        .style("fill", "rgba(0,0,0,0.1)");
 
     pc.brushExtents = brushExtents;
     pc.brushReset = brushReset;
@@ -1504,15 +1511,26 @@ pc.brushMode = function(mode) {
     if (!g) pc.createAxes();
 
     // Add and store a brush for each axis.
-    g.append("svg:g")
+    var brush = g.append("svg:g")
       .attr("class", "brush")
       .each(function(d) {
         d3.select(this).call(brushFor(d));
-      })
-      .selectAll("rect")
+      });
+
+    brush.selectAll("rect")
         .style("visibility", null)
         .attr("x", -15)
         .attr("width", 30);
+
+    brush.selectAll("rect.background")
+        .style("fill", "transparent");
+
+    brush.selectAll("rect.extent")
+        .style("fill", "rgba(255,255,255,0.25)")
+        .style("stroke", "rgba(0,0,0,0.6)");
+
+    brush.selectAll(".resize rect")
+        .style("fill", "rgba(0,0,0,0.1)");
 
     pc.brushExtents = brushExtents;
     pc.brushReset = brushReset;
@@ -2090,13 +2108,7 @@ pc.version = "0.7.0";
     img.onload = function () {
       context.drawImage(img, 0, 0);
 
-      var data = mergedCanvas.toDataURL("image/jpeg");
-
-      // Download the image
-      var download = document.createElement("a");
-      download.href = data;
-      download.download = "parallel-coordinate.png";
-      download.click();
+      document.body.appendChild(mergedCanvas);
     };
 
     img.src = src;
