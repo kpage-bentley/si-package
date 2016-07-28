@@ -1,16 +1,21 @@
 <div data-ng-controller="ParcoordsController">
 
+    <h1>Sun Burst</h1>
+    <hierarchical-sunburst-chart data-settings="settingssun"
+                                 data-data="datasun">
+    </hierarchical-sunburst-chart>
+   
     <h1>New Version</h1>
-    <parallel-coords-chart
-        style="height:200px"
-        data-control="innerControl"
-        data-settings="settings"
-        data-data="data"
-        data-selected-indices="selectedIndices">
+    <parallel-coords-chart style="height:200px"
+                           data-control="innerControl"
+                           data-settings="settings"
+                           data-data="data"
+                           data-selected-indices="selectedIndices">
     </parallel-coords-chart>
+  
     <button data-ng-click="clickSaveScreenshot()">Save screenshot</button>
 
-    <hr>
+ 
 
     <h1>Old Version</h1>
     <si-parcoords data-settings="oldSettings"></si-parcoords>

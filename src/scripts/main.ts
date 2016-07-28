@@ -46,5 +46,5 @@ class ParcoordDirective {
 }
 
 angular
-    .module('si.package', [])
+    .module('si.package')
     .directive('siParcoords', ParcoordDirective.Factory());
