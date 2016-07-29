@@ -8,7 +8,6 @@ interface HierarchicalSunburstChartSettings {
     colors ?: any;
 }
 
-
 class HierarchicalSunburstChartComponent {
 
     public restrict: string;
@@ -103,7 +102,7 @@ class HierarchicalSunburstChartComponent {
         this.chartelement = element;
         element.innerHTML = this.template;
 
-        this.vis = d3.select(".main").append("svg:svg")
+        this.vis = d3.select(element).select(".main").append("svg:svg")
             .attr("width", settings.width)
             .attr("height", settings.height)
             .append("svg:g")
@@ -215,11 +214,11 @@ class HierarchicalSunburstChartComponent {
                 percentageString = "< 0.1%";
             }
 
-            d3.select(".spiname")
+            d3.select(this.chartelement).select(".spiname")
                 .text(d.name);
-            d3.select(".percentage")
+            d3.select(this.chartelement).select(".percentage")
                 .text(percentageString);
-            d3.select(".explanation")
+            d3.select(this.chartelement).select(".explanation")
                 .style("visibility", "");
 
             var sequenceArray = self.getAncestors(d);
@@ -266,9 +265,9 @@ class HierarchicalSunburstChartComponent {
                     d3.select(this).on("mouseover", self.mouseover());
                 });
 
-            d3.select(".spiname")
+            d3.select(this.chartelement).select(".spiname")
                 .text(this.title);
-            d3.select(".percentage")
+            d3.select(this.chartelement).select(".percentage")
                 .text("");
         }
     }

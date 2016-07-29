@@ -9,30 +9,28 @@ myApp.controller('ParcoordsController', ['$scope', '$q', function ($scope, $q) {
         title: 'My Sunburst',
         colors: {
             "Skewed Connections": "#3423F3",
-            "Span to Depth Ratio": "#5592EF",
             "Element Weights": "#905E54",
             "Procurement Time": "#529683",
-            "Super structure Weight": "#9E40CE",
-            "Weight of Beams": "#9E40CE",
+            "Super structure Weight": "#9E40CE"
         }
     };
 
     $scope.datasun = [];
 
 
-    var textData =  "Element Weights-spiPass-Weight of Beams, 60\n"+
-                    "Element Weights-spifail-Weight of Beams, 10\n" +
-                    "Skewed Connections-spiPass-Connections Affecting Contrustion Cost, 100\n" +
-                    "Skewed Connections-spifail-Connections Affecting Contrustion Cost, 0\n" +
-                    "Procurement Time-spiPass-Beam Lead Time, 72\n" +
-                    "Procurement Time-spiPass-Column Lead Time, 16\n" +
-                    "Procurement Time-spiPass-Brace Lead time, 24\n" +
-                    "Procurement Time-spifail-Beam Lead Time, 6\n" +
-                    "Procurement Time-spifail-Column Lead Time, 12\n" +
-                    "Super structure Weight-spiPass-Beam Weight, 36\n" +
-                    "Super structure Weight-spiPass-Column Weight, 54\n" +
-                    "Super structure Weight-spifail-Beam Weight, 6\n" +
-                    "Super structure Weight-spifail-Column Weight, 4"
+    var textData = "Element Weights-Weight of Beams-spiPass, 60\n" +
+                    "Element Weights-Weight of Beams-spifail, 10\n" +
+                    "Skewed Connections-Connections Affecting Contrustion Cost-spiPass, 100\n" +
+                    "Skewed Connections-Connections Affecting Contrustion Cost-spifail, 0\n" +
+                    "Procurement Time-Beam Lead Time-spiPass, 72\n" +
+                    "Procurement Time-Column Lead Time-spiPass, 16\n" +
+                    "Procurement Time-Brace Lead time-spiPass, 24\n" +
+                    "Procurement Time-Beam Lead Time-spifail, 6\n" +
+                    "Procurement Time-Column Lead Time-spifail, 12\n" +
+                    "Super structure Weight-Beam Weight-spiPass, 36\n" +
+                    "Super structure Weight-Column Weight-spiPass, 54\n" +
+                    "Super structure Weight-Beam Weight-spifail, 6\n" +
+                    "Super structure Weight-Column Weight-spifail, 4"
 
     var csv = d3.csv.parseRows(textData);
     var json = buildHierarchy(csv);
