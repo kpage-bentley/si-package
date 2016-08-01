@@ -102,6 +102,45 @@ Or you can pass an object of the type:
     }
 }
 ```
+### SunBurst
+
+```html
+    <hierarchical-sunburst-chart
+        data-settings="settings"
+        data-data="data">
+    </hierarchical-sunburst-chart>
+```
+
+##### Settings
+
+These are the settings.
+
+| Key               | Type                  | Description                           | Default      |
+|-------------------|-----------------------|---------------------------------------|--------------|
+| `width`           | `number`              | Set the width of chart.               | `500`        |
+| `height` 			| `number`              | Set the height of chart.              | `500`        |
+| `colors`   		| `(d: any) => string`  | Used to determine the brush color.    | `null`       |
+| `title`      		| `ColorRange`          | Used to determine the brush color.    | `null`       |
+
+```javascript
+interface HierarchicalSunburstChartSettings {
+    width ?: number;
+    height ?: number;
+    title ?: string;
+    colors ?: any;
+}
+```
+
+##### Data
+
+need description.
+
+```javascript
+any[];
+```
+
+
+
 ## Demo
 http://kpage-bentley.github.io/si-package/
 

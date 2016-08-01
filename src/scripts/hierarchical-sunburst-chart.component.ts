@@ -48,10 +48,10 @@ class HierarchicalSunburstChartComponent {
     public link(scope: any, element: angular.IAugmentedJQuery, attrs: any): void {
         // Set defaults
         if (typeof scope.settings.height === "undefined") {
-            scope.settings.height = 400;
+            scope.settings.height = 500;
         }
         if (typeof scope.settings.width === "undefined") {
-            scope.settings.width = 400;
+            scope.settings.width = 500;
         }
         if (typeof scope.settings.colors === "undefined") {
             scope.settings.colors = {
