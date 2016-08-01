@@ -119,8 +119,8 @@ These are the settings.
 |-------------------|-----------------------|---------------------------------------|--------------|
 | `width`           | `number`              | Set the width of chart.               | `500`        |
 | `height` 			| `number`              | Set the height of chart.              | `500`        |
-| `colors`   		| `(d: any) => string`  | Used to determine the brush color.    | `null`       |
-| `title`      		| `ColorRange`          | Used to determine the brush color.    | `null`       |
+| `colors`   		| `Object with key value pair`          | for setting color of pies.            | `null`       |
+| `title`      		| `string`          | Set title for sunburst chart.    | `null`       |
 
 ```javascript
 interface HierarchicalSunburstChartSettings {
