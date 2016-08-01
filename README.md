@@ -113,7 +113,7 @@ Or you can pass an object of the type:
 
 ##### Settings
 
-These are the settings.
+These are the settings for sunburst chart.
 
 | Key               | Type                  | Description                           | Default      |
 |-------------------|-----------------------|---------------------------------------|--------------|
